@@ -5,17 +5,15 @@ body{
     background-color: rgb(241, 241, 241);
     text-align: center;
 }
-h1{
-    margin: 30px 0;
-    font-family: Century Gothic;
+img{
+    margin: 30px;
 }
 h3{
-    margin: 10px 0;
+    margin: 10px;
     font-family: Century Gothic;
 }
 .container{
-    display: inline-block;
-    max-width: 400px;
+    max-width: 450px;
 }
 .div{
     background-color: white;
@@ -36,6 +34,25 @@ input{
     border: none;
     border-bottom: 2px solid black;
 }
+
+.form-floating .form-control{
+    height: 50px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid black;
+    /* background-color: aqua; */
+}
+.form-floating .form-control:focus{
+    box-shadow: 0 0;
+}
+.form-floating label{
+    padding: 0px;
+    height: 25px;
+    top: 30px;
+    left: 20px;
+    /* background-color: rebeccapurple; */
+}
+
 .required{
     text-align: left;
     font-size: 12px;
@@ -62,3 +79,38 @@ input{
 .newAcount:hover{
     background-color: rgb(121, 219, 121);
 }
+
+.con2{
+    display: none;
+}
+.father-preload{
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.preloader {
+    width: 70px;
+    height: 70px;
+    border: 8px solid rgb(255, 255, 255);
+    border-top: 8px solid #666;
+    border-radius: 50%;
+    animation-name: girar;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes girar {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* .col, .col-auto, .col-6, .col-2, .col-8, .col-4, .col-3, .col-5, .col-7, .col-sm{
+    border: 2px solid rgb(241, 5, 5);
+} */
+/* .row{
+    background-color: aqua;
+   
+} */

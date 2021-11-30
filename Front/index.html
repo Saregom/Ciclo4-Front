@@ -4,42 +4,102 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/login-index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scripts/login-index-maquina.js"></script>
+    <script src="scripts/login-index.js"></script>
+    <link rel="shortcut icon" href="sources/logo-ochobits-oficial3.svg">
     <title>Ingresar</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Ocho Bits LTDA</h1>
-        <h2 class="welcome"></h2>
-        <a href="." id="back"></a>
+    <div class="container con1">
+        <header>
+            <img src="sources/logo-ochobits2.svg" >
+        </header>
         <div class="div divLogin">
             <h3>Ingresar</h2>
             <form action="javascript:verifyUser();">
-                <input id="email1" type="email" placeholder="Correo electronico" required>
-                <input id="pass1" type="password" placeholder="Contraseña" required> 
+                <div class="row">
+                    <div class="col form-floating">
+                        <input id="email1" class="form-control" type="email" placeholder="." required>
+                        <label for="name">Correo electronico</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-floating">
+                        <input id="pass1" class="form-control" type="password" placeholder="." required> 
+                        <label for="name">Contraseña</label>
+                    </div>
+                </div>
                 <button class="btn login">Iniciar sesión</button>
             </form>
+            <!-- <button class="btn login" onclick="getUsers2()">Iniciar sesión 2</button> -->
             <hr>
             <button class="btn newAcount" onclick="changeDiv('.divSignin')">Crear cuenta</button>
         </div>
         <div class="div divSignin">
             <h3>Nueva cuenta</h4>
-            <form action="javascript:verifyEmail();">
-                <input id="name" type="text" placeholder="Nombre" required>
-                <input id="email" type="email" placeholder="Correo electronico" required>
-                <p class="required rEmail"></p>
-                <input id="pass" type="password" placeholder="Contraseña" required>
-                <p class="required rPass"></p>
-                <input id="passConfirm" type="password" placeholder="Confirmar contraseña" required>
-                <p class="required rConfirmPass"></p>
+            <form action="javascript:verifyEmail();" class="myForm">
+                <div class="row">
+                    <div class="col-sm-7  form-floating">
+                        <input id="name" class="form-control" type="text" placeholder="." required>
+                        <label for="name">Nombre</label>
+                    </div>
+                    <div class="col-sm form-floating">
+                        <input id="identification" class="form-control" type="text" placeholder="." required>
+                        <label for="CC" class="l1">Identificacion</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-floating">
+                        <input id="email" class="form-control" type="email" placeholder="." required>
+                        <label for="name">Correo electronico</label>
+                        <p class="required rEmail"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm form-floating">
+                        <input id="pass" class="form-control" type="password" placeholder="." required>
+                        <label for="name">Contraseña</label>
+                        <p class="required rPass"></p>
+                    </div>
+                    <div class="col-sm form-floating">
+                        <input id="passConfirm" class="form-control" type="password" placeholder="." required>
+                        <label for="name">Confirmar contraseña</label>  
+                        <p class="required rConfirmPass"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-floating">
+                        <input id="address" class="form-control" type="text" placeholder="." required>
+                        <label for="name">Direccion</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col form-floating">
+                        <input id="cellPhone" class="form-control" type="text" placeholder="." required>
+                        <label for="name">Celular</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 form-floating">
+                        <input id="zone" class="form-control" type="text" placeholder="." required>
+                        <label for="name">Zona</label>
+                    </div>
+                    <div class="col-sm form-floating">
+                        <input id="type" class="form-control" type="text" placeholder="." required>
+                        <label for="name">Tipo</label>
+                    </div>
+                </div>
                 <button class="btn login">Registrarse</button>
             </form>
             <hr>
             <a class="haveAcount" href="javascript:changeDiv('.divLogin');">Ya tengo una cuenta</a>
         </div>
+    </div>
+
+    <div class="father-preload">
+        <div class="preloader"></div>
     </div>
 </body>
 </html>

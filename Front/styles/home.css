@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+}
+thead{ background-color: #131250; color: white;}
+th, td{
+    padding: 10px;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+@media screen and (max-width: 700px) {
+	table, th, thead, tbody, td{ display: block; }
+    /* table{width: 100%;} */
+	thead { float: left;}
+	tbody {overflow-x: auto; white-space: nowrap; }
+	tr { display: inline-block;}
+}
