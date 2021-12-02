@@ -1,17 +1,131 @@
 *{
     box-sizing: border-box;
 }
-thead{ background-color: #131250; color: white;}
+:root{
+    --blue-header: #7d60ff;
+    --blue-Oscuro: #131250;
+    --white: white;
+}
+/* Header */
+body{
+    background-color: #f1f1f8;
+}
+header{
+    height: 55px;
+    background-color: var(--blue-header);
+    position: sticky;
+    top: 0;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+.logo{
+    background: linear-gradient(to right,  var(--white),  var(--blue-header));
+    height: 100%;
+    padding: 5px;
+    padding-left: 20px;
+}
+.nav-father{
+    width: 100%;
+    justify-content: right;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.nav-menu{
+    margin: 0px 10px;
+}
+.txt-menu{
+    margin: 0px 10px;
+    font-size: 17px;
+    color: var(--white);
+    text-decoration: none;
+}
+.t-m-name{
+    color: var(--blue-Oscuro);
+    font-size: 20px;
+}
+.div-menu-logo-user{
+    border-left: 2px solid var(--blue-Oscuro);
+}
+.fa-user-circle{
+    margin-left: 10px;
+    font-size: 35px;
+    color: var(--blue-Oscuro);
+}
+
+@media screen and (max-width: 650px) {
+    .txt-menu{
+        display:none;
+    }
+    .div-menu-logo-user{
+        border: none;
+    }
+	.nav-father{
+        margin-right: 20px;
+    }
+}
+
+/* body */
+.body-container{
+    margin-top: 20px;
+}
+
+/* aside */
+aside{
+    position: fixed;
+    top: 75px;
+    width: 250px;
+    padding: 20px;
+    height: calc(100vh - 7rem);
+    overflow-y: auto;
+}
+.aside-input{
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+}
+
+/* main */
+main{
+    margin-top: 50px;
+    margin-left: 270px;
+    margin-bottom: 40px;
+}
+
+/* Tablas */
+table{
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+}
+thead{
+    background-color: var(--blue-Oscuro);
+    color: var(--white);
+}
 th, td{
     padding: 10px;
 }
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: var(--white);
+}
+@media screen and (max-width: 575px) {
+    aside{
+        position: initial;
+        width: 100%;
+        margin-top: 20px;
+        height: auto;
+    }
+    main{
+        margin: 0;
+    }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1100px) {
 	table, th, thead, tbody, td{ display: block; }
-    /* table{width: 100%;} */
 	thead { float: left;}
 	tbody {overflow-x: auto; white-space: nowrap; }
 	tr { display: inline-block;}

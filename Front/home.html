@@ -9,23 +9,83 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/login-index.js"></script>
     <script src="scripts/home.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="shortcut icon" href="sources/logo-ochobits-oficial3.svg">
     <title>Home</title>
 </head>
 <body>
     <header>
-        <img src="sources/logo-ochobits2.svg" width="400px">
-        <h1 id="welcome"></h1>
+        <img class="logo" src="sources/logo-ochobits2.svg">
+
+        <div class="nav-father">
+            <nav class="nav-menu">
+                <a href="javascript:getUsers2();" class="txt-menu tm-users"><span>Users</span></a>
+                <a href="javascript:getLaptops();" class="txt-menu tm-laptop" ><span>Laptops</span></a>
+            </nav>
+            <div class="div-menu-logo-user">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="div-menu-text-user">
+                <a href="" class="txt-menu t-m-name"><span></span></a>
+            </div>
+        </div>
     </header>
-    <button onclick="getUsers2()">click</button>
-    <div>
-        <table>
-            <thead id="theadUser">
+    <!-- <table id="table">
+        <thead id="thead"> 
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table> -->
+    
+<div class="body-container">
+    <main>
+        <h1 class="welcome">Welcome to Ocho Bits web page!!</h1>
+        <h2 class="welcome">Get the tables in the navigation menu</h2>
+        <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+        
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+        </h1> -->
+        <table id="table">
+            <thead id="thead"> 
             </thead>
-            <tbody id="tbodyUser">
+            <tbody id="tbody">
             </tbody>
         </table>
-    </div>
+    </main>
+    <aside>
+        <!-- <div class="aside-head"> -->
+            <h3 class="aside-name">Table</h3>
+        
+            <input id="inpC" type="radio" name="optionTable" value="create">
+            <label for="inpC" id="lblC">Create</label>
+            <input id="inpU" type="radio" name="optionTable" value="update" >
+            <label for="inpU" id="lblC">Update</label>
+        <!-- </div> -->
+        
+
+        <div class="div-aside-inputs">
+        </div>
+    </aside>
+</div>
     
+    
+    
+    <!-- <div class="div-relleno">
+
+    </div> -->
+    
+    <!-- <main>
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+    
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis commodi soluta aut hic. Illum, natus officia! Vel fugiat libero deleniti unde quos nam blanditiis ratione minima! Nostrum, est! Magnam, iure.
+        </h1>
+    </main> -->
+
 </body>
 </html>

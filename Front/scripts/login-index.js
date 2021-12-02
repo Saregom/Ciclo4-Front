@@ -35,7 +35,7 @@ const loadHome = (datos) => {
 $(document).ready(function () {
     if (window.location.hash) {
         let name = window.location.hash.substring(1)
-        $('#welcome').html("Bienvenido "+name.replace("%20", " "))
+        $('.user').html(name.replace("%20", " "))
     }
 });
 
@@ -81,7 +81,7 @@ const getUsers = () => {
     return $.ajax({
         url: "http://localhost/api/user/all",
         type:"GET",
-        contentType:'json',
+        contentType:'json'
     });
 }
 
