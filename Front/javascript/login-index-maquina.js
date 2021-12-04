@@ -11,7 +11,7 @@ const changeDiv = (opc) => {
 
 const verifyUser = () => {
     $.ajax({
-        url: "http://localhost/api/user/"+$("#email1").val()+"/"+$("#pass1").val(),
+        url: "http://144.22.242.102/api/user/"+$("#email1").val()+"/"+$("#pass1").val(),
         method: "GET",
         dataType: "json",
         success: function (datos) {
@@ -35,51 +35,52 @@ const loadHome = (datos) => {
 $(document).ready(function () {
     if (window.location.hash) {
         let name = window.location.hash.substring(1)
-        $('.user').html(name.replace("%20", " "))
+        $('.t-m-name').html(name.replace("%20", " "))
     }
 });
 
 const verifyEmail = () => {
-    $.ajax({
-        url: "http://localhost/api/user/emailexist/"+$("#email").val(),
+    return $.ajax({
+        url: "http://144.22.242.102/api/user/emailexist/"+$("#email").val(),
         method: "GET",
         dataType: "json",
-        success: function (datos) {
-            if(datos){
-                $(".rEmail").html("La direccion de correo ya existe")
-                validations(false)
-            }else{
-                $(".rEmail").html("")
-                validations(true)
-            }
-        }
     })
 }
 
-const validations = (boolean) => {
-    let correct = boolean;
-    if($("#pass").val().length<8){
-        $(".rPass").html("La contraseña debe tener minimo 8 caracteres")
-        correct = false
-    }else{
-        $(".rPass").html("")
-    }
+const validations = () => {
+    verifyEmail().done(function(datos){
+        if(datos){
+            $(".rEmail").html("La direccion de correo ya existe")
+            correct = false
+        }else{
+            $(".rEmail").html("")
+            correct = true
+        }
 
-    if($("#pass").val() != $("#passConfirm").val()){
-        $(".rConfirmPass").html("Las contraseñas no coinciden")
-        correct = false
-    }else{
-        $(".rConfirmPass").html("")
-    }
-
-    if(correct){
-        registerClient()
-    }
+        if($("#pass").val().length<8){
+            $(".rPass").html("La contraseña debe tener minimo 8 caracteres")
+            correct = false
+        }else{
+            $(".rPass").html("")
+        }
+    
+        if($("#pass").val() != $("#passConfirm").val()){
+            $(".rConfirmPass").html("Las contraseñas no coinciden")
+            correct = false
+        }else{
+            $(".rConfirmPass").html("")
+        }
+        console.log(correct)
+        if(correct){
+            registerClient()
+        }
+    })
+    
 }
 
 const getUsers = () => {
     return $.ajax({
-        url: "http://localhost/api/user/all",
+        url: "http://144.22.242.102/api/user/all",
         type:"GET",
         contentType:'json'
     });
@@ -106,7 +107,7 @@ const registerClient = () =>{
             type:$("#type").val(),
         };
         $.ajax({
-            url: "http://localhost/api/user/new",
+            url: "http://144.22.242.102/api/user/new",
             type:"POST",
             data: JSON.stringify(myData),
             contentType:'application/JSON',
