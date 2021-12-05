@@ -7,6 +7,7 @@ body{
 }
 img{
     margin: 30px;
+    max-width: 400px;
 }
 h3{
     margin: 10px;
@@ -40,7 +41,6 @@ input{
     border: none;
     border-radius: 0;
     border-bottom: 2px solid black;
-    /* background-color: aqua; */
 }
 .form-floating .form-control:focus{
     box-shadow: 0 0;
@@ -50,7 +50,6 @@ input{
     height: 25px;
     top: 30px;
     left: 20px;
-    /* background-color: rebeccapurple; */
 }
 
 .required{

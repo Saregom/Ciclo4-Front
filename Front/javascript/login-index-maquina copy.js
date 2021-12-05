@@ -70,7 +70,7 @@ const validations = () => {
         }else{
             $(".rConfirmPass").html("")
         }
-        console.log(correct)
+        
         if(correct){
             registerClient()
         }
@@ -88,13 +88,16 @@ const getUsers = () => {
 
 const registerClient = () =>{
     getUsers().done(function(datos){
-        let id;
-        let idArray = [];
-        for(const items of datos){
-            idArray.push(items.id)
+        let id = 1;
+        if(datos.length != 0){
+            let idArray = [];
+            for(const items of datos){
+                idArray.push(items.id)
+            }
+            idArray.sort((a,b)=>b-a)
+            id = idArray[0]+1
         }
-        idArray.sort((a,b)=>b-a)
-        id = idArray[0]+1
+
         myData={
             id:id,
             name:$("#name").val(),

@@ -28,8 +28,8 @@
         <div class="nav-father">
             <div class="nav-menu-popup"></div>
             <nav class="nav-menu-left">
-                <a href="javascript:getUsers2();" class="txt-menu tm-users"><span>Users</span></a>
-                <a href="javascript:getLaptops();" class="txt-menu tm-laptop" ><span>Laptops</span></a>
+                <a href="javascript:getUsers2();" class="txt-menu-left tm-users"><span>Users</span></a>
+                <a href="javascript:getLaptops();" class="txt-menu-left tm-laptop" ><span>Laptops</span></a>
             </nav>
             <nav class="nav-menu">
                 <a href="javascript:getUsers2();" class="txt-menu tm-users"><span>Users</span></a>
@@ -48,7 +48,7 @@
     <div class="body-container">
         <main>
             <h1 class="welcome">Welcome to Ocho Bits web page!!</h1>
-            <h2 class="welcome">Get the tables in the navigation menu</h2>
+            <h2 class="welcome2">Get the tables in the navigation menu</h2>
             <div class="div-table">
                 <table id="table">
                     <thead id="thead"></thead>
@@ -59,11 +59,11 @@
         <aside>
             <div class="aside-user" id="aside-user">
                 <h3 class="aside-name">Users</h3>
-                <input id="radioC" type="radio" title="Disabled" disabled>
-                <label for="radioC" title="Disabled">Create </label>
-                <input id="radioU" type="radio" name="optionUser" value="PUT" checked >
-                <label for="radioU">Update</label>
-                <i class="fas fa-info-circle" title="Set data by prssing the table edit button"></i>
+                <input id="radioC" class="radio" type="radio" title="Disabled" disabled>
+                <label for="radioC" class="radio" title="Disabled">Create </label>
+                <input id="radioU" class="radio" type="radio" name="optionUser" value="PUT" checked >
+                <label for="radioU" class="radio">Update</label>
+                <i class="fas fa-info-circle" title="Set data by pressing the table edit button"></i>
                 <form action="javascript:PutUser()">
                     <div class="aside-inputs-user"></div>
                     <input class="aside-btn" type="submit" value="Save">
@@ -72,10 +72,10 @@
             </div>
             <div class="aside-laptop">
                 <h3 class="aside-name">Laptops</h3>
-                <input id="radioC2" type="radio" name="optionLaptop" value="POST" onclick="asideOpcion()" checked>
-                <label for="radioC2">Create</label>
-                <input id="radioU2" type="radio" name="optionLaptop" value="PUT" onclick="asideOpcion()">
-                <label for="radioU2">Update</label>
+                <input id="radioC2" class="radio" type="radio" name="optionLaptop" value="POST" onclick="asideOpcion()" checked>
+                <label for="radioC2" class="radio">Create</label>
+                <input id="radioU2" class="radio" type="radio" name="optionLaptop" value="PUT" onclick="asideOpcion()">
+                <label for="radioU2" class="radio">Update</label>
                 <i class="fas fa-info-circle" title="Set data by pressing the table edit button"></i>
                 <form action="javascript:PostPutLaptop()"">
                     <div class="aside-inputs-laptop"></div>

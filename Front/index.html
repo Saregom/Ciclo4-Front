@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="javascript/login-index-maquina.js"></script>
     <link rel="shortcut icon" href="sources/logo-ochobits-oficial3.svg">
-    <title>Ingresar</title>
+    <title>Ocho Bits - Log in</title>
 </head>
 <body>
     <div class="container con1">
@@ -17,83 +17,83 @@
             <img src="sources/logo-ochobits2.svg" >
         </header>
         <div class="div divLogin">
-            <h3>Ingresar</h2>
+            <h3>Log in</h2>
             <form action="javascript:verifyUser();">
                 <div class="row">
                     <div class="col form-floating">
                         <input id="email1" class="form-control" type="email" placeholder="." required>
-                        <label for="name">Correo electronico</label>
+                        <label for="email1">E-mail</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col form-floating">
                         <input id="pass1" class="form-control" type="password" placeholder="." required> 
-                        <label for="name">Contraseña</label>
+                        <label for="pass1">Password</label>
                     </div>
                 </div>
-                <button class="btn login">Iniciar sesión</button>
+                <button class="btn login">Log in</button>
             </form>
             <hr>
-            <button class="btn newAcount" onclick="changeDiv('.divSignin')">Crear cuenta</button>
+            <button class="btn newAcount" onclick="changeDiv('.divSignin')">Create account</button>
         </div>
         <div class="div divSignin">
-            <h3>Nueva cuenta</h4>
+            <h3>New account</h4>
             <form action="javascript:validations();" class="myForm">
                 <div class="row">
                     <div class="col-sm-7  form-floating">
                         <input id="name" class="form-control" type="text" placeholder="." required>
-                        <label for="name">Nombre</label>
+                        <label for="name">First name</label>
                     </div>
                     <div class="col-sm form-floating">
                         <input id="identification" class="form-control" type="text" placeholder="." required>
-                        <label for="CC" class="l1">Identificacion</label>
+                        <label for="CC" class="l1">Identification</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col form-floating">
                         <input id="email" class="form-control" type="email" placeholder="." required>
-                        <label for="name">Correo electronico</label>
+                        <label for="name">E-mail</label>
                         <p class="required rEmail"></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm form-floating">
                         <input id="pass" class="form-control" type="password" placeholder="." required>
-                        <label for="name">Contraseña</label>
+                        <label for="name">Password</label>
                         <p class="required rPass"></p>
                     </div>
                     <div class="col-sm form-floating">
                         <input id="passConfirm" class="form-control" type="password" placeholder="." required>
-                        <label for="name">Confirmar contraseña</label>  
+                        <label for="name">Confirm password</label>  
                         <p class="required rConfirmPass"></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col form-floating">
                         <input id="address" class="form-control" type="text" placeholder="." required>
-                        <label for="name">Direccion</label>
+                        <label for="name">Adress</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col form-floating">
                         <input id="cellPhone" class="form-control" type="text" placeholder="." required>
-                        <label for="name">Celular</label>
+                        <label for="name">CellPhone</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-5 form-floating">
                         <input id="zone" class="form-control" type="text" placeholder="." required>
-                        <label for="name">Zona</label>
+                        <label for="name">Zone</label>
                     </div>
                     <div class="col-sm form-floating">
                         <input id="type" class="form-control" type="text" placeholder="." required>
-                        <label for="name">Tipo</label>
+                        <label for="name">Type</label>
                     </div>
                 </div>
-                <button class="btn login">Registrarse</button>
+                <button class="btn login">Sign up</button>
             </form>
             <hr>
-            <a class="haveAcount" href="javascript:changeDiv('.divLogin');">Ya tengo una cuenta</a>
+            <a class="haveAcount" href="javascript:changeDiv('.divLogin');">I already have an account</a>
         </div>
     </div>
 

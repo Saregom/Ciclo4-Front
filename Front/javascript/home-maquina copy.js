@@ -8,7 +8,7 @@ $(function(){
         $(".nav-menu-popup").animate({opacity:'0.4', duration:500});
         $(".nav-menu-left").animate({width:'200px', easing:'ease', duration:500});
     })
-    $(".nav-menu-popup, .txt-menu").click(function(){
+    $(".nav-menu-popup, .txt-menu-left").click(function(){
         $(".nav-menu-left").animate({width:'0px', easing:'ease', duration:500});
         $(".nav-menu-popup").animate({opacity:'0', duration:500});
         setTimeout(function(){
@@ -18,12 +18,10 @@ $(function(){
 })
 
 const beforeGet = () => {
-    $(".welcome").css("display", "none")
-    $(".aside-inputs-user").empty();
-    $(".aside-inputs-laptop").empty();
+    $(".welcome, .welcome2").css("display", "none")
+    $(".aside-inputs-user, .aside-inputs-laptop").empty();
     $("#table").css("box-shadow","0 0")
-    $("#thead").empty();
-    $("#tbody").empty();
+    $("#thead, #tbody").empty();
 }
 
 const getUsers2 = () => {
@@ -43,28 +41,32 @@ const getUsers2 = () => {
         type:"GET",
         contentType:'json',
         success: function(datos){
-            
-            let thead = "<tr>";
-            let tbody = "<tr>";
-            for(const item of datos){
-                for(const item2 in item){
-                    thead+="<th>"+item2+"</th>";
+            if(datos.length == 0){
+                $(".welcome").css("display", "block")
+                $(".welcome").html("There is not data to show")
+            }else{
+                let thead = "<tr>";
+                let tbody = "<tr>";
+                for(const item of datos){
+                    for(const item2 in item){
+                        thead+="<th>"+item2+"</th>";
+                    }
+                    break;
                 }
-                break;
-            }
-            thead+="<th>Upd/Del</th>";
-            thead+="</tr>";
-            for(const item of datos){
-                tbody+="<tr>";
-                for(const item2 in item){
-                    tbody+="<td>"+item[item2]+"</td>";
+                thead+="<th>Upd/Del</th>";
+                thead+="</tr>";
+                for(const item of datos){
+                    tbody+="<tr>";
+                    for(const item2 in item){
+                        tbody+="<td>"+item[item2]+"</td>";
+                    }
+                    tbody+="<td>"+"<button class='btn1-table' onclick='setInputs("+item.id+", 1)'><i class='fas fa-pencil-alt'></i></button>"+"<button class='btn2-table' onclick='DelUser("+item.id+")'><i class='fas fa-trash-alt'></i></button>"+"</td>";
+                    tbody+="</tr>";
                 }
-                tbody+="<td>"+"<button class='btn1-table' onclick='setInputs("+item.id+", 1)'><i class='fas fa-pencil-alt'></i></button>"+"<button class='btn2-table' onclick='DelLaptop("+item.id+")'><i class='fas fa-trash-alt'></i></button>"+"</td>";
-                tbody+="</tr>";
+                $("#thead").append(thead)
+                $("#tbody").append(tbody)
+                $("#table").css("box-shadow","0 5px 10px 3px #bebebe")
             }
-            $("#thead").append(thead)
-            $("#tbody").append(tbody)
-            $("#table").css("box-shadow","0 5px 10px 3px #bebebe")
         }
     });
 }
@@ -87,27 +89,32 @@ const getLaptops = () => {
         type:"GET",
         contentType:'json',
         success: function(datos){
-            let thead = "<tr>";
-            let tbody = "<tr>";
-            for(const item of datos){
-                for(const item2 in item){
-                    thead+="<th>"+item2+"</th>";
+            if(datos.length == 0){
+                $(".welcome").css("display", "block")
+                $(".welcome").html("There is not data to show")
+            }else{
+                let thead = "<tr>";
+                let tbody = "<tr>";
+                for(const item of datos){
+                    for(const item2 in item){
+                        thead+="<th>"+item2+"</th>";
+                    }
+                    break;
                 }
-                break;
-            }
-            thead+="<th>Upd/Del</th>";
-            thead+="</tr>"; 
-            for(const item of datos){
-                tbody+="<tr>";
-                for(const item2 in item){
-                    tbody+="<td>"+item[item2]+"</td>";
+                thead+="<th>Upd/Del</th>";
+                thead+="</tr>"; 
+                for(const item of datos){
+                    tbody+="<tr>";
+                    for(const item2 in item){
+                        tbody+="<td>"+item[item2]+"</td>";
+                    }
+                    tbody+="<td>"+"<button class='btn1-table' onclick='setInputs("+item.id+", 2)'><i class='fas fa-pencil-alt'></i></button>"+"<button class='btn2-table' onclick='DelLaptop("+item.id+")'><i class='fas fa-trash-alt'></i></button>"+"</td>";
+                    tbody+="</tr>";
                 }
-                tbody+="<td>"+"<button class='btn1-table' onclick='setInputs("+item.id+", 2)'><i class='fas fa-pencil-alt'></i></button>"+"<button class='btn2-table' onclick='DelLaptop("+item.id+")'><i class='fas fa-trash-alt'></i></button>"+"</td>";
-                tbody+="</tr>";
+                $("#thead").append(thead)
+                $("#tbody").append(tbody)
+                $("#table").css("box-shadow","0 5px 10px 3px #bebebe")
             }
-            $("#thead").append(thead)
-            $("#tbody").append(tbody)
-            $("#table").css("box-shadow","0 5px 10px 3px #bebebe")
         }
     });
 }
@@ -122,13 +129,15 @@ const getLaptop = () => {
 }
 const asideOpcion = () => {
     getLaptop().done(function(datos){
-        let id;
-        let idArray = [];
-        for(const items of datos){
-            idArray.push(items.id)
+        let id = 1;
+        if(datos.length != 0){
+            let idArray = [];
+            for(const items of datos){
+                idArray.push(items.id)
+            }
+            idArray.sort((a,b)=>b-a)
+            id = idArray[0]+1
         }
-        idArray.sort((a,b)=>b-a)
-        id = idArray[0]+1
 
         let opc = $('input:radio[name=optionLaptop]:checked').val()
         let inpid = getId("id")
@@ -143,7 +152,7 @@ const asideOpcion = () => {
     })
     
 }
-const getIdUser = (url) => {
+const getIdUserLapt = (url) => {
     return $.ajax({
         url: url,
         type:"GET",
@@ -160,7 +169,7 @@ const setInputs = (id, opc) => {
             url="http://localhost:8080/api/laptop/"+id; break;
     }
     
-    getIdUser(url).done(function(datos){
+    getIdUserLapt(url).done(function(datos){
         //This method is so crazy
         for(const item in datos){
             $("#"+item+"").val(datos[item])
@@ -178,13 +187,11 @@ const vacios = (myData) => {
 const PutUser = async () => {
     let email;
     let url = "http://localhost:8080/api/user/"+$("#id").val();
-    let promes = getIdUser(url).done(function(datos){
+    let promes = getIdUserLapt(url).done(function(datos){
         email = datos.email;
-        console.log("1")
     })
     await promes; 
     verifyEmail().done(function(datos){
-        console.log("2")
         if(datos & email != $("#email").val()){
             alert("La direccion de correo ya existe")
             $("#email").css("border", "2px solid red")
@@ -214,7 +221,6 @@ const PutUser = async () => {
             });
         }
     })
-    
 }
 const DelUser = (id) => {
     $.ajax({
@@ -243,7 +249,6 @@ const PostPutLaptop = () => {
         photography:$("#photography").val(),
     };
     let opc = $('input:radio[name=optionLaptop]:checked').val()
-    console.log(opc)
     switch(opc){
         case "POST":
             url="http://localhost:8080/api/laptop/new"
