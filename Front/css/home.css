@@ -7,18 +7,19 @@
     --white: white;
 }
 /* Header */
-body{
+/* body{
     background-color: #f1f1f8;
-}
-header{
+} */
+.myHeader{
     height: 55px;
     background-color: var(--blue-header);
     position: sticky;
     top: 0;
     justify-content: center;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     z-index: 100;
+    display: none;
 }
 .div-bars-logo{
     padding-left: 20px;
@@ -131,7 +132,7 @@ header{
         display:none;
     }
 
-    aside{
+    /* aside{
         position: initial;
         width: 100%;
         margin-top: 20px;
@@ -139,16 +140,16 @@ header{
     }
     main{
         margin: 20px;
-    }
+    } */
 }
 
 /* body */
-.body-container{
+.main-home{
     margin-top: 20px;
 }
 
 /* aside */
-aside{
+.aside-home{
     position: fixed;
     top: 75px;
     width: 250px;
@@ -186,7 +187,7 @@ aside{
 }
 
 /* main */
-main{
+.main2-home{
     margin: 50px 20px 40px 270px;
 }
 
@@ -217,13 +218,13 @@ tbody tr:nth-child(odd) {
     background-color: lightcoral;
 }
 @media screen and (max-width: 575px) {
-    aside{
+    .aside-home{
         position: initial;
         width: 100%;
         margin-top: 20px;
         height: auto;
     }
-    main{
+    .main-home{
         margin: 20px;
     }
 }

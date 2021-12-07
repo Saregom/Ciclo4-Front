@@ -1,15 +1,21 @@
 *{
     box-sizing: border-box;
 }
-body{
-    background-color: rgb(241, 241, 241);
+.main-login{
     text-align: center;
 }
-img{
+.main-changer{
+    display: none;
+}
+body{
+    background-color: #f1f1f8;
+    /* text-align: center; */
+}
+.logo-login{
     margin: 30px;
     max-width: 400px;
 }
-h3{
+.title-div-index{
     margin: 10px;
     font-family: Century Gothic;
 }
@@ -26,7 +32,7 @@ h3{
 .divSignin{
     display: none;
 }
-input{
+.form-control{
     display: block;
     margin-top: 20px;
     width: 100%;
@@ -84,7 +90,7 @@ input{
 }
 .father-preload{
     height: 100vh;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
 }

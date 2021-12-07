@@ -1,3 +1,26 @@
+const mainChanger = (page) => {
+    sessionStorage.setItem("url", page)
+    location.reload()
+}
+
+$(document).ready(function () {
+    $('.main-changer').css('display', 'none')
+    $('.father-preload').css('display', 'flex')
+    let myUrl = sessionStorage.getItem("url")
+    if(myUrl != null){
+        $('.main-changer').load(myUrl)
+    }
+    setTimeout(function(){
+        $('.father-preload').css('display', 'none')
+        if(myUrl != "index.html" & myUrl != null){
+            $('.myHeader').css('display', 'flex')
+            $('.t-m-name').html(sessionStorage.getItem("name"))
+            document.title = "Ocho Bits - Home"
+        }
+        $('.main-changer').css('display', 'block')
+    },1000);
+});
+
 const changeDiv = (opc) => {
     $('.div').css('display', 'none')
     $(opc).css('display', 'block');
@@ -18,26 +41,12 @@ const verifyUser = () => {
             if(datos.id==null){
                 alert("Email o contraseña incorrectos")
             }else{
-                loadHome(datos)
+                sessionStorage.setItem("name", datos.name)
+                mainChanger('home.html')
             }
         }
     })
 }
-
-const loadHome = (datos) => {
-    $('.con1').css('display', 'none')
-    $('.father-preload').css('display', 'flex')
-    setTimeout(function(){
-        window.location.href = 'home.html#'+datos.name;
-    },1500);
-}
-
-$(document).ready(function () {
-    if (window.location.hash) {
-        let name = window.location.hash.substring(1)
-        $('.t-m-name').html(name.replace("%20", " "))
-    }
-});
 
 const verifyEmail = () => {
     return $.ajax({
@@ -46,7 +55,6 @@ const verifyEmail = () => {
         dataType: "json",
     })
 }
-
 const validations = () => {
     verifyEmail().done(function(datos){
         if(datos){
@@ -85,7 +93,6 @@ const getUsers = () => {
         contentType:'json'
     });
 }
-
 const registerClient = () =>{
     getUsers().done(function(datos){
         let id = 1;
@@ -97,7 +104,6 @@ const registerClient = () =>{
             idArray.sort((a,b)=>b-a)
             id = idArray[0]+1
         }
-
         myData={
             id:id,
             name:$("#name").val(),
@@ -116,7 +122,8 @@ const registerClient = () =>{
             contentType:'application/JSON',
             success: function(datos){
                 alert("Registro exitoso")
-                loadHome(datos)
+                sessionStorage.setItem("name", datos.name)
+                mainChanger('home.html')
             }
         });
     })
