@@ -160,6 +160,9 @@
 .aside-user, .aside-laptop{
     display: none;
 }
+.radio{
+    cursor: pointer;
+}
 .fa-info-circle{
     opacity: 0.4;
 }
@@ -170,9 +173,6 @@
     border: none;
     background-color: transparent;
     border-bottom: 2px solid black;
-}
-.radio{
-    cursor: pointer;
 }
 .aside-btn{
     margin: 10px auto;

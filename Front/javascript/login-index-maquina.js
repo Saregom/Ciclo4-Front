@@ -1,5 +1,32 @@
+/* 
+localhost:8080
+144.22.242.102
+*/
+const GetDelAjax = (url, type) =>{
+    return $.ajax({
+        url: url,
+        type: type,
+        contentType:'application/JSON'
+    });
+}
+
+const PosPutAjax = (url, type, data) =>{
+    return $.ajax({
+        url: url,
+        type:type,
+        contentType:'application/JSON',
+        data: JSON.stringify(data),
+    });
+}
+
 const mainChanger = (page) => {
-    sessionStorage.setItem("url", page)
+    if(page == ""){
+        sessionStorage.removeItem("url")
+        sessionStorage.removeItem("idUser")
+        sessionStorage.removeItem("name")
+    }else{
+        sessionStorage.setItem("url", page)
+    }
     location.reload()
 }
 
@@ -33,30 +60,19 @@ const changeDiv = (opc) => {
 }
 
 const verifyUser = () => {
-    $.ajax({
-        url: "http://144.22.242.102/api/user/"+$("#email1").val()+"/"+$("#pass1").val(),
-        method: "GET",
-        dataType: "json",
-        success: function (datos) {
-            if(datos.id==null){
-                alert("Email o contraseña incorrectos")
-            }else{
-                sessionStorage.setItem("name", datos.name)
-                mainChanger('home.html')
-            }
+    GetDelAjax("http://localhost:8080/api/user/"+$("#email1").val()+"/"+$("#pass1").val(), "GET").done(function(datos){
+        if(datos.id==null){
+            alert("Email o contraseña incorrectos")
+        }else{
+            sessionStorage.setItem("name", datos.name)
+            sessionStorage.setItem("idUser", datos.id)
+            mainChanger('home.html')
         }
     })
 }
 
-const verifyEmail = () => {
-    return $.ajax({
-        url: "http://144.22.242.102/api/user/emailexist/"+$("#email").val(),
-        method: "GET",
-        dataType: "json",
-    })
-}
 const validations = () => {
-    verifyEmail().done(function(datos){
+    GetDelAjax("http://localhost:8080/api/user/emailexist/"+$("#email").val(), "GET").done(function(datos){
         if(datos){
             $(".rEmail").html("La direccion de correo ya existe")
             correct = false
@@ -82,32 +98,16 @@ const validations = () => {
         if(correct){
             registerClient()
         }
-    })
-    
+    })   
 }
 
-const getUsers = () => {
-    return $.ajax({
-        url: "http://144.22.242.102/api/user/all",
-        type:"GET",
-        contentType:'json'
-    });
-}
 const registerClient = () =>{
-    getUsers().done(function(datos){
-        let id = 1;
-        if(datos.length != 0){
-            let idArray = [];
-            for(const items of datos){
-                idArray.push(items.id)
-            }
-            idArray.sort((a,b)=>b-a)
-            id = idArray[0]+1
-        }
+    GetDelAjax("http://localhost:8080/api/user/all", "GET").done(function(datos){
         myData={
-            id:id,
             name:$("#name").val(),
             identification:$("#identification").val(),
+            birthtDay:$("#birthDay").val(),
+            monthBirthtDay:$("#mBirthDay").val(),
             email:$("#email").val(),
             password:$("#pass").val(),
             address:$("#address").val(),
@@ -115,16 +115,11 @@ const registerClient = () =>{
             zone:$("#zone").val(),
             type:$("#type").val(),
         };
-        $.ajax({
-            url: "http://144.22.242.102/api/user/new",
-            type:"POST",
-            data: JSON.stringify(myData),
-            contentType:'application/JSON',
-            success: function(datos){
-                alert("Registro exitoso")
-                sessionStorage.setItem("name", datos.name)
-                mainChanger('home.html')
-            }
+        PosPutAjax("http://localhost:8080/api/user/new", "POST", myData).done(function(datos){
+            alert("Registro exitoso")
+            sessionStorage.setItem("name", datos.name)
+            sessionStorage.setItem("idUser", datos.id)
+            mainChanger('home.html')
         });
     })
 }

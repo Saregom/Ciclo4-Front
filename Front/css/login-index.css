@@ -32,22 +32,15 @@ body{
 .divSignin{
     display: none;
 }
-.form-control{
-    display: block;
+.form-floating .form-control, .selected{
     margin-top: 20px;
     width: 100%;
-    height: 40px;
-    font-size: 15px;
-    border: none;
-    border-bottom: 2px solid black;
-}
-
-.form-floating .form-control{
     height: 50px;
     border: none;
     border-radius: 0;
     border-bottom: 2px solid black;
 }
+
 .form-floating .form-control:focus{
     box-shadow: 0 0;
 }

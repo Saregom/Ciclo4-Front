@@ -69,7 +69,8 @@
                         </div>
                         <button class="btn login">Log in</button>
                     </form>
-                    <!-- <button class="btn newAcount" onclick="mainChanger('home2.html')">home</button> -->
+                    <button class="btn newAcount" onclick="mainChanger('home.html')">home</button>
+                    <!-- <button class="btn newAcount" onclick="call()">call</button> -->
                     <hr>
                     <button class="btn newAcount" onclick="changeDiv('.divSignin')">Create account</button>
                 </div>
@@ -79,52 +80,66 @@
                         <div class="row">
                             <div class="col-sm-7  form-floating">
                                 <input id="name" class="form-control" type="text" placeholder="." required>
-                                <label for="name">First name</label>
+                                <label >First name</label>
                             </div>
                             <div class="col-sm form-floating">
                                 <input id="identification" class="form-control" type="text" placeholder="." required>
-                                <label for="CC" class="l1">Identification</label>
+                                <label class="l1">Identification</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col form-floating">
                                 <input id="email" class="form-control" type="email" placeholder="." required>
-                                <label for="name">E-mail</label>
+                                <label>E-mail</label>
                                 <p class="required rEmail"></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm form-floating">
                                 <input id="pass" class="form-control" type="password" placeholder="." required>
-                                <label for="name">Password</label>
+                                <label>Password</label>
                                 <p class="required rPass"></p>
                             </div>
                             <div class="col-sm form-floating">
                                 <input id="passConfirm" class="form-control" type="password" placeholder="." required>
-                                <label for="name">Confirm password</label>  
+                                <label>Confirm password</label>  
                                 <p class="required rConfirmPass"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm form-floating">
+                                <input id="birthDay" class="form-control" type="text" placeholder="." required>
+                                <label>Birth day</label>
+                            </div>
+                            <div class="col-sm form-floating">
+                                <input id="mBirthDay" class="form-control" type="text" placeholder="." required>
+                                <label>Month Birth day</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col form-floating">
                                 <input id="address" class="form-control" type="text" placeholder="." required>
-                                <label for="name">Adress</label>
+                                <label>Adress</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col form-floating">
                                 <input id="cellPhone" class="form-control" type="text" placeholder="." required>
-                                <label for="name">CellPhone</label>
+                                <label>CellPhone</label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-5 form-floating">
-                                <input id="zone" class="form-control" type="text" placeholder="." required>
-                                <label for="name">Zone</label>
-                            </div>
                             <div class="col-sm form-floating">
-                                <input id="type" class="form-control" type="text" placeholder="." required>
-                                <label for="name">Type</label>
+                                <input id="zone" class="form-control" type="text" placeholder="." required>
+                                <label >Zone</label>
+                            </div>
+                            <div class="col-sm select-father">
+                                <select id="type" name="Type" class="selected" placeholder="de" required>
+                                    <option value="" disabled selected>Type</option>
+                                    <option value="COORD">COORD</option>
+                                    <option value="ASE">ASE</option>
+                                    <option value="ADM">ADM</option>
+                                </select>
                             </div>
                         </div>
                         <button class="btn login">Sign up</button>
