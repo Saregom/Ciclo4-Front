@@ -27,8 +27,29 @@ const mainChanger = (page) => {
     }else{
         sessionStorage.setItem("url", page)
     }
+    /* mainChanger2() */
     location.reload()
 }
+
+/* const mainChanger2 = () => {
+    console.log("inside 1")
+    $('.main-changer').css('display', 'none')
+    $('.father-preload').css('display', 'flex')
+    let myUrl = sessionStorage.getItem("url")
+    if(myUrl != null){
+        $('.main-changer').load(myUrl)
+    }
+    setTimeout(function(){
+        $('.father-preload').css('display', 'none')
+        if(myUrl != "index.html" & myUrl != null){
+            $('.myHeader').css('display', 'flex')
+            $('.t-m-name').html(sessionStorage.getItem("name"))
+            document.title = "Ocho Bits - Home"
+        }
+        $('.main-changer').css('display', 'block')
+    },1000);
+    console.log("inside 2")
+} */
 
 $(document).ready(function () {
     $('.main-changer').css('display', 'none')
@@ -46,6 +67,34 @@ $(document).ready(function () {
         }
         $('.main-changer').css('display', 'block')
     },1000);
+
+    if(myUrl == "orders.html"){
+        let id = sessionStorage.getItem("idUser")
+        if(id!=null){
+            GetDelAjax("http://localhost:8080/api/user/"+id, "GET").done(function(datos){
+                if(datos.type == "ASE"){
+                    $(".main-orders").css("display", "block")
+                    $(".main-orders2").css("display", "none")
+                }else{
+                    $(".main-orders2").css("display", "block")
+                    $(".main-orders").css("display", "none")
+                }
+
+                //setOrderProducts()
+            })
+            
+        }
+        setOrderProducts()
+
+    }
+    
+    
+    
+    /* 
+    ajax(id)
+
+    
+    */
 });
 
 const changeDiv = (opc) => {

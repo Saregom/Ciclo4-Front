@@ -7,9 +7,6 @@
     --white: white;
 }
 /* Header */
-/* body{
-    background-color: #f1f1f8;
-} */
 .myHeader{
     height: 55px;
     background-color: var(--blue-header);
@@ -149,7 +146,7 @@
 }
 
 /* aside */
-.aside-home{
+.aside{
     position: fixed;
     top: 75px;
     width: 250px;
@@ -190,25 +187,28 @@
 .main2-home{
     margin: 50px 20px 40px 270px;
 }
+.main2-orders{
+    margin: 50px 20px 40px 270px;
+}
 
 /* Tablas */
-.div-table{
+.div-table-tables{
     display: block;
     overflow-x: auto;
     border-radius: 10px;
 }
-table{
+#table-tables{
     width: 100%;
     text-align: center;
 }
-thead{
+#thead-tables{
     background-color: var(--blue-Oscuro);
     color: var(--white);
 }
-th, td{
+.th-tables, .td-tables{
     padding: 10px;
 }
-tbody tr:nth-child(odd) {
+#tbody-tables tr:nth-child(odd) {
     background-color: var(--white);
 }
 .btn1-table{
@@ -218,14 +218,15 @@ tbody tr:nth-child(odd) {
     background-color: lightcoral;
 }
 @media screen and (max-width: 575px) {
-    .aside-home{
+    .aside{
         position: initial;
         width: 100%;
         margin-top: 20px;
         height: auto;
     }
-    .main-home{
+    .main2-home, .main2-orders{
         margin: 20px;
+        background-color: #6044dd;
     }
 }
 

@@ -26,8 +26,8 @@ const beforeGet = (d1, d2) => {
     $(".aside-laptop").css('display', d2)
     $(".welcome, .welcome2").css("display", "none")
     $(".aside-inputs-user, .aside-inputs-laptop").empty();
-    $("#table").css("box-shadow","0 0")
-    $("#thead, #tbody").empty();
+    $("#table-tables").css("box-shadow","0 0")
+    $("#thead-tables, #tbody-tables").empty();
 }
 
 const afterGet = (nombres, aside, url, opc) => {
@@ -39,23 +39,23 @@ const afterGet = (nombres, aside, url, opc) => {
     }
     GetDelAjax(url, "GET").done(function(datos){
         if(datos.length == 0){
-            $(".welcome").html("There is not data to show")
+            $(".welcome").html("There are not data to show")
             $(".welcome").css("display", "block")
         }else{
             let thead = "<tr>";
             for(const item of datos){
                 for(const item2 in item){
-                    thead+="<th>"+item2+"</th>";
+                    thead+="<th class='th-tables'>"+item2+"</th>";
                 }break;
             }
-            thead+="<th>Upd/Del</th></tr>";
+            thead+="<th class='th-tables'>Upd/Del</th></tr>";
             let tbody;
             for(const item of datos){
                 tbody+="<tr>";
                 for(const item2 in item){
-                    tbody+="<td>"+item[item2]+"</td>";
+                    tbody+="<td class='td-tables'>"+item[item2]+"</td>";
                 }
-                tbody+="<td><button class='btn1-table' onclick='setInputs("+item.id+", "+opc+")'><i class='fas fa-pencil-alt'></i></button>"
+                tbody+="<td class='td-tables'><button class='btn1-table' onclick='setInputs("+item.id+", "+opc+")'><i class='fas fa-pencil-alt'></i></button>"
                 if(opc == 1){
                     tbody+="<button class='btn2-table' onclick='DelUser("+item.id+")'><i class='fas fa-trash-alt'></i></button></td></tr>";
                 }else{
@@ -63,21 +63,20 @@ const afterGet = (nombres, aside, url, opc) => {
                 }
                 
             }
-            $("#thead").append(thead)
-            $("#tbody").append(tbody)
+            $("#thead-tables").append(thead)
+            $("#tbody-tables").append(tbody)
             $("#table").css("box-shadow","0 5px 10px 3px #bebebe")
         }
     })
 }
 
-const getUsers2 = () => {
+const getUsers = async () => {
     beforeGet('block', 'none')
     let nombres = ["id", "identification", "name", "birthtDay", "monthBirthtDay", "address", "cellPhone", "email", "password",  "zone", "type"]
     afterGet(nombres, ".aside-inputs-user", "http://localhost:8080/api/user/all", 1)
-    
 }
 
-const getLaptops = () => {
+const getLaptops = async () => {
     beforeGet('none', 'block')
     let nombres = ["id", "brand", "model", "procesor", "os", "description", "memory", "hardDrive", "availability", "price", "quantity", "photography"]
     afterGet(nombres, ".aside-inputs-laptop", "http://localhost:8080/api/laptop/all", 2)
@@ -141,6 +140,8 @@ const PutUser = async () => {
                 id:$("#id").val(),
                 name:$("#name").val(),
                 identification:$("#identification").val(),
+                birthtDay:$("#birthtDay").val(),
+                monthBirthtDay:$("#monthBirthtDay").val(),
                 email:$("#email").val(),
                 password:$("#password").val(),
                 address:$("#address").val(),
@@ -151,7 +152,7 @@ const PutUser = async () => {
             vacios(myData)
             PosPutAjax("http://localhost:8080/api/user/update", "PUT", myData).done(function(datos){
                 $(".aside-input").val("")
-                getUsers2();
+                getUsers();
                 alert("Datos Actualizados!")
             })
         }
@@ -159,7 +160,7 @@ const PutUser = async () => {
 }
 const DelUser = (id) => {
     GetDelAjax("http://localhost:8080/api/user/"+id, "DELETE").done(function(datos){
-        getUsers2();
+        getUsers();
         alert("Datos Borrados!")
     })
 }
