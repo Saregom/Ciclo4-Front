@@ -1,0 +1,99 @@
+<div class="container con-index">
+    <div class="div-logo">
+        <img class="logo-login" src="sources/logo-ochobits2.svg" >
+    </div>
+    <div class="div-index divLogin">
+        <h3 class="title-index">Log in</h2>
+        <form action="javascript:verifyUser();">
+            <div class="row">
+                <div class="col form-floating">
+                    <input id="email1" class="form-control" type="email" placeholder="." required>
+                    <label for="email1">E-mail</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-floating">
+                    <input id="pass1" class="form-control" type="password" placeholder="." required> 
+                    <label for="pass1">Password</label>
+                </div>
+            </div>
+            <button class="btn-index btn-blue">Log in</button>
+        </form>
+        <button class="" onclick="mainChanger('home.html')">home</button>
+        <hr>
+        <button class="btn-index btn-green" onclick="changeDiv('.divSignin')">Create account</button>
+    </div>
+    <div class="div-index divSignin">
+        <h3>New account</h4>
+        <form action="javascript:validations();" class="myForm">
+            <div class="row">
+                <div class="col-sm-7  form-floating">
+                    <input id="name" class="form-control" type="text" placeholder="." required>
+                    <label >First name</label>
+                </div>
+                <div class="col-sm form-floating">
+                    <input id="identification" class="form-control" type="text" placeholder="." required>
+                    <label class="l1">Identification</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-floating">
+                    <input id="email" class="form-control" type="email" placeholder="." required>
+                    <label>E-mail</label>
+                    <p class="required rEmail"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm form-floating">
+                    <input id="pass" class="form-control" type="password" placeholder="." required>
+                    <label>Password</label>
+                    <p class="required rPass"></p>
+                </div>
+                <div class="col-sm form-floating">
+                    <input id="passConfirm" class="form-control" type="password" placeholder="." required>
+                    <label>Confirm password</label>  
+                    <p class="required rConfirmPass"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm form-floating">
+                    <input id="birthDay" class="form-control" type="text" placeholder="." required>
+                    <label>Birth day</label>
+                </div>
+                <div class="col-sm form-floating">
+                    <input id="mBirthDay" class="form-control" type="text" placeholder="." required>
+                    <label>Month Birth day</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-floating">
+                    <input id="address" class="form-control" type="text" placeholder="." required>
+                    <label>Adress</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-floating">
+                    <input id="cellPhone" class="form-control" type="text" placeholder="." required>
+                    <label>CellPhone</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm form-floating">
+                    <input id="zone" class="form-control" type="text" placeholder="." required>
+                    <label >Zone</label>
+                </div>
+                <div class="col-sm select-father">
+                    <select id="type" name="Type" class="selected" required>
+                        <option value="" disabled selected>Type</option>
+                        <option value="COORD">COORD</option>
+                        <option value="ASE">ASE</option>
+                        <option value="ADM">ADM</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-index btn-blue">Sign up</button>
+        </form>
+        <hr>
+        <a class="haveAcount" href="javascript:changeDiv('.divLogin');">I already have an account</a>
+    </div>
+</div>

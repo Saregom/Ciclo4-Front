@@ -19,6 +19,15 @@ const PosPutAjax = (url, type, data) =>{
     });
 }
 
+const getIdUser = async () =>{
+    let idUser = sessionStorage.getItem("idUser")
+    let result;
+    await GetDelAjax("http://localhost:8080/api/user/"+idUser, "GET").done(function(datos){
+        result = datos
+    })
+    return result
+}
+
 const mainChanger = (page) => {
     if(page == ""){
         sessionStorage.removeItem("url")
@@ -27,84 +36,64 @@ const mainChanger = (page) => {
     }else{
         sessionStorage.setItem("url", page)
     }
-    /* mainChanger2() */
-    location.reload()
+
+    let myUrl = sessionStorage.getItem("url")
+    if(myUrl != null){
+        procces(myUrl)
+    }else{
+        location.reload()
+    }
 }
-
-/* const mainChanger2 = () => {
-    console.log("inside 1")
-    $('.main-changer').css('display', 'none')
-    $('.father-preload').css('display', 'flex')
-    let myUrl = sessionStorage.getItem("url")
-    if(myUrl != null){
-        $('.main-changer').load(myUrl)
+const procces = (myUrl) => {
+    switch(myUrl){
+        case "home.html": document.title = "Home - Ocho Bits";break;
+        case "tables.html": document.title = "Tables - Ocho Bits";break;
+        case "orders.html": document.title = "Orders - Ocho Bits";break;
+        default: document.title = "Login - Ocho Bits"
     }
-    setTimeout(function(){
-        $('.father-preload').css('display', 'none')
-        if(myUrl != "index.html" & myUrl != null){
-            $('.myHeader').css('display', 'flex')
-            $('.t-m-name').html(sessionStorage.getItem("name"))
-            document.title = "Ocho Bits - Home"
-        }
-        $('.main-changer').css('display', 'block')
-    },1000);
-    console.log("inside 2")
-} */
-
-$(document).ready(function () {
-    $('.main-changer').css('display', 'none')
-    $('.father-preload').css('display', 'flex')
-    let myUrl = sessionStorage.getItem("url")
-    if(myUrl != null){
-        $('.main-changer').load(myUrl)
+    $('.main-changer').load(myUrl)
+    if(myUrl != "login.html"){
+        $('.header').css("display", "flex")
+        $('.t-m-name').html(sessionStorage.getItem("name"))
     }
-    setTimeout(function(){
-        $('.father-preload').css('display', 'none')
-        if(myUrl != "index.html" & myUrl != null){
-            $('.myHeader').css('display', 'flex')
-            $('.t-m-name').html(sessionStorage.getItem("name"))
-            document.title = "Ocho Bits - Home"
-        }
-        $('.main-changer').css('display', 'block')
-    },1000);
-
     if(myUrl == "orders.html"){
         let id = sessionStorage.getItem("idUser")
         if(id!=null){
             GetDelAjax("http://localhost:8080/api/user/"+id, "GET").done(function(datos){
                 if(datos.type == "ASE"){
-                    $(".main-orders").css("display", "block")
-                    $(".main-orders2").css("display", "none")
+                    setOrderProducts()
+                    $(".main-orders-coor").css("display", "none")
+                    $(".main-orders-ase").css("display", "block")
                 }else{
-                    $(".main-orders2").css("display", "block")
-                    $(".main-orders").css("display", "none")
+                    setAseOrders()
+                    $(".main-orders-ase").css("display", "none")
+                    $(".main-orders-coor").css("display", "block")
                 }
-
-                //setOrderProducts()
             })
-            
         }
-        setOrderProducts()
-
     }
-    
-    
-    
-    /* 
-    ajax(id)
+}
 
-    
-    */
+$(document).ready(function() {
+    let myUrl = sessionStorage.getItem("url")
+    if(myUrl == null){
+        sessionStorage.setItem("url", "login.html")
+        myUrl = sessionStorage.getItem("url")
+    }
+    procces(myUrl)
+    /* console.log("22") */
+    /* setTimeout(function(){$('.main-changer').css('display', 'block')},1000); */
+    //$('.main-changer').css('display', 'block')
 });
 
 const changeDiv = (opc) => {
-    $('.div').css('display', 'none')
+    $('.div-index').css('display', 'none')
     $(opc).css('display', 'block');
 
     if(opc==".divSignin"){
-        $('.container').css('max-width', '600px')
+        $('.con-index').css('max-width', '600px')
     }else{
-        $('.container').css('max-width', '450px')
+        $('.con-index').css('max-width', '450px')
     }
 }
 
@@ -152,7 +141,7 @@ const validations = () => {
 
 const registerClient = () =>{
     GetDelAjax("http://localhost:8080/api/user/all", "GET").done(function(datos){
-        myData={
+        let myData={
             name:$("#name").val(),
             identification:$("#identification").val(),
             birthtDay:$("#birthDay").val(),

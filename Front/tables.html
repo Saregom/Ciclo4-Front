@@ -1,0 +1,45 @@
+<div class="main main-tables">
+    <div class="main2 main2-tables">
+        <div class="row option-table">
+            <div class="col opt-users" onclick="getUsers('.opt-users')">
+                <p>Users</p>
+            </div>
+            <div class="col opt-laptops" onclick="getLaptops('.opt-laptops')">
+                <p>Laptops</p>
+            </div>
+        </div>
+        <div class="div-table">
+            <table class="table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <aside class="aside aside-tables">
+        <h2>Select a table</h2>
+        <div class="aside-user">
+            <h3 class="aside-name">Users</h3>
+            <input id="radioC" class="radio" type="radio" title="Disabled" disabled>
+            <label for="radioC" class="radio" title="Disabled">Create </label>
+            <input id="radioU" class="radio" type="radio" name="optionUser" value="PUT" checked >
+            <label for="radioU" class="radio">Update</label>
+            <i class="fas fa-info-circle" title="Set data by pressing the table edit button"></i>
+            <form action="javascript:PutUser()">
+                <div class="aside-inputs-user"></div>
+                <input class="aside-btn" type="submit" value="Save">
+            </form>
+        </div>
+        <div class="aside-laptop">
+            <h3 class="aside-name">Laptops</h3>
+            <input id="radioC2" class="radio" type="radio" name="optionLaptop" value="POST" onclick="asideOpcion()" checked>
+            <label for="radioC2" class="radio">Create</label>
+            <input id="radioU2" class="radio" type="radio" name="optionLaptop" value="PUT" onclick="asideOpcion()">
+            <label for="radioU2" class="radio">Update</label>
+            <i class="fas fa-info-circle" title="Set data by pressing the table edit button"></i>
+            <form action="javascript:PostPutLaptop()"">
+                <div class="aside-inputs-laptop"></div>
+                <input class="aside-btn" type="submit" value="Save">
+            </form>
+        </div>
+    </aside>
+</div>

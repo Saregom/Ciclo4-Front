@@ -69,6 +69,12 @@ body{
 .form-floating .form-control:focus{
     box-shadow: 0 0;
 }
+/* .main2-home button:focus {
+    box-shadow: 0 0;
+} */
+/* input:focus{
+    box-shadow: 0 0;
+} */
 .form-floating label{
     padding: 0px;
     height: 25px;

@@ -6,6 +6,7 @@ const getId = (id) =>{
     return document.getElementById(id)
 }
 
+/* Event listener */
 $(function(){
     $('.div-bars').click(function(){
         $(".nav-menu-popup").css('display', 'block');
@@ -19,27 +20,34 @@ $(function(){
             $(".nav-menu-popup").css('display', 'none');
         }, 500)
     })
+    $(".option-table .col").hover(function(){
+        $(".option-table .col").css("background-color", "green")
+    })
 })
+
+const optionTable = (opc) => {
+    $(".option-table .col").css({"background-color": "white", "color": "black"})
+    $(opc).css({"background-color": "#5a57e7", "color": "white"})
+}
 
 const beforeGet = (d1, d2) => {
     $(".aside-user").css('display', d1)
     $(".aside-laptop").css('display', d2)
-    $(".welcome, .welcome2").css("display", "none")
-    $(".aside-inputs-user, .aside-inputs-laptop").empty();
-    $("#table-tables").css("box-shadow","0 0")
-    $("#thead-tables, #tbody-tables").empty();
+    $(".aside-inputs-user, .aside-inputs-laptop").empty()
+    $(".aside-tables h2").css("display", "none")
+    $(".div-table").css("box-shadow","0 0")
 }
 
 const afterGet = (nombres, aside, url, opc) => {
+    let asideInputs =""
     for(const label of nombres){
-        let asideInputs = "<label class='aside-label'>"+label[0].toUpperCase() + label.slice(1)+"</label>"
-        asideInputs += "<input type='text' id="+label+" class='aside-input'>"
-
-        $(aside).append(asideInputs)
+        asideInputs += "<label class='aside-label'>"+label[0].toUpperCase() + label.slice(1)+"</label>"
+        asideInputs += "<input type='text' id="+label+" class='aside-input' required>"
     }
+    $(aside).html(asideInputs)
     GetDelAjax(url, "GET").done(function(datos){
         if(datos.length == 0){
-            $(".welcome").html("There are not data to show")
+            $(".welcome").html("No data to show")
             $(".welcome").css("display", "block")
         }else{
             let thead = "<tr>";
@@ -63,20 +71,22 @@ const afterGet = (nombres, aside, url, opc) => {
                 }
                 
             }
-            $("#thead-tables").append(thead)
-            $("#tbody-tables").append(tbody)
-            $("#table").css("box-shadow","0 5px 10px 3px #bebebe")
+            $(".table thead").html(thead)
+            $(".table tbody").html(tbody)
+            $(".div-table").css("box-shadow","0 0 10px #B8B8B8")
         }
     })
 }
 
-const getUsers = async () => {
+const getUsers = async (opc) => {
+    optionTable(opc)
     beforeGet('block', 'none')
     let nombres = ["id", "identification", "name", "birthtDay", "monthBirthtDay", "address", "cellPhone", "email", "password",  "zone", "type"]
     afterGet(nombres, ".aside-inputs-user", "http://localhost:8080/api/user/all", 1)
 }
 
-const getLaptops = async () => {
+const getLaptops = async (opc) => {
+    optionTable(opc)
     beforeGet('none', 'block')
     let nombres = ["id", "brand", "model", "procesor", "os", "description", "memory", "hardDrive", "availability", "price", "quantity", "photography"]
     afterGet(nombres, ".aside-inputs-laptop", "http://localhost:8080/api/laptop/all", 2)
@@ -86,17 +96,21 @@ const getLaptops = async () => {
 const asideOpcion = () => {
     let opc = $('input:radio[name=optionLaptop]:checked').val()
     let inpId = getId("id")
+    
     if(opc == "POST"){
         inpId.disabled = true;
         inpId.title = "Disabled"
         $("#id").css("opacity", "0.3")
         $("#id").val("")
+        console.log("post")
     }else{
         inpId.disabled = false;
         inpId.title = ""
         $("#id").css("opacity", "1")
+        console.log("put")
     }
-    
+    console.log(opc)
+    console.log(inpId)
 }
 
 const setInputs = (id, opc) => {
@@ -136,7 +150,7 @@ const PutUser = async () => {
             alert("La direccion de correo ya existe")
             $("#email").css("border", "2px solid red")
         }else{
-            myData={
+            let myData={
                 id:$("#id").val(),
                 name:$("#name").val(),
                 identification:$("#identification").val(),
@@ -166,7 +180,7 @@ const DelUser = (id) => {
 }
 
 const PostPutLaptop = () => {
-    myData={
+    let myData={
         id:$("#id").val(),
         brand:$("#brand").val(),
         model:$("#model").val(),
@@ -190,6 +204,7 @@ const PostPutLaptop = () => {
         alerta="Datos Actualizados!";
     }
     vacios(myData)
+    console.log(myData)
     PosPutAjax(url, opc, myData).done(function(datos){
         $(".aside-input").val("")
         getLaptops();

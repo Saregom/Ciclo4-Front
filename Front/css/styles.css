@@ -1,0 +1,412 @@
+/* ----------- GLOBAL -----------*/
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: #f1f1f8;
+}
+:root{
+    --blue-header: #7d60ff;
+    --blue-Oscuro: #131250;
+    --white: white;
+    --gray-box-shadow: #B8B8B8;
+}
+/* estructure */
+.aside{
+    position: fixed;
+    top: 55px;
+    width: 270px;
+    padding: 20px;
+    padding-left: 1px;
+    height: calc(100vh - 55px);
+    overflow-y: auto;
+}
+.main{
+    padding: 20px;
+}
+.main2{
+    margin-left: 290px;
+}
+/* tablas responsive */
+.div-table{
+    display: block;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px var(--gray-box-shadow);
+}
+.table{
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+.table thead{
+    background-color: var(--blue-Oscuro);
+    color: var(--white);
+}
+.table th, .table td{
+    padding: 7px;
+}
+.table tbody tr:nth-child(odd) {
+    background-color: var(--white);
+}
+.btn1-table{
+    background-color: lightgreen;
+}
+.btn2-table{
+    background-color: lightcoral;
+}
+
+/* ----------- INDEX -----------*/
+/* carga */
+/* .father-preload{
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.preloader {
+    width: 70px;
+    height: 70px;
+    border: 8px solid var(--white);
+    border-top: 8px solid #666;
+    border-radius: 50%;
+    animation-name: girar;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes girar {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+} */
+/* cuerpo index */
+.con-index{
+    max-width: 450px;
+}
+.div-logo{
+    text-align: center;
+}
+.logo-login{
+    margin: 30px;
+    max-width: 400px;
+}
+.div-index{
+    background-color: var(--white);
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 #C2C2C2;
+}
+.title-index{
+     font-family: Century Gothic;
+}
+.divSignin{
+    display: none;
+}
+/* iputs */
+.form-floating .form-control, .selected{
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid black;
+}
+input.form-control:focus, button.btn-index:focus{
+    box-shadow: 0 0;
+}
+.form-floating label{
+    padding: 0px;
+    height: 25px;
+    top: 30px;
+    left: 20px;
+}
+.required{
+    text-align: left;
+    font-size: 12px;
+    margin-bottom: 0;
+    color: red;
+}
+/* buttons */
+.btn-index{
+    width: 100%; 
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightskyblue;
+}
+.btn-blue{
+    margin-top: 20px;
+}
+.btn-blue:hover{
+    background-color: rgb(112, 188, 235);
+}
+.btn-green{
+    background-color: lightgreen;
+}
+.btn-green:hover{
+    background-color: rgb(121, 219, 121);
+}
+
+
+/* ----------- HOME -----------*/
+/* Header */
+.header{
+    height: 55px;
+    background-color: var(--blue-header);
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.div-bars-logo{
+    padding-left: 20px;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    background: linear-gradient(to right,  var(--white),  var(--blue-header));
+}
+.div-bars{
+    background-color: #6044dd;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--white);
+    box-shadow: 1px 1px #3F3F3F;
+    font-size: 18px;
+    display: none;
+    cursor: pointer;
+}
+.div-bars:hover {
+    background-color: #7b62e9;
+}
+.logo-header{
+    height: 100%;
+    padding: 7px 0 4px;
+    cursor: pointer;
+}
+.nav-father{
+    width: 100%;
+    justify-content: right;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.nav-menu{
+    margin: 0px 10px;
+}
+.nav-menu-left{
+    display: none;
+}
+.txt-menu, .txt-menu-left{
+    margin: 0px 10px;
+    font-size: 17px;
+    color: var(--white);
+    text-decoration: none;
+}
+.txt-menu:hover{
+    color: var(--blue-Oscuro);
+}
+.t-m-name{
+    color: var(--blue-Oscuro);
+    font-weight: 500;
+    font-size: 19px;
+}
+.menu-logo-user{
+    border-left: 2px solid var(--blue-Oscuro);
+}
+.fa-user-circle{
+    margin-left: 10px;
+    font-size: 35px;
+    color: var(--blue-Oscuro);
+}
+
+@media screen and (max-width: 750px) {
+    .div-bars{
+        display: flex;/* Idk why fix this */
+    }
+    .nav-father{
+        margin-right: 20px;
+    }
+    .nav-menu{
+        display: none;
+    }
+    .nav-menu-left{
+        display: block;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        position: fixed;
+        overflow-y: auto;
+        width: 0;
+        background-color: #6b52db;
+        /* padding: 20px; */
+    }
+    .nav-menu-popup{
+        opacity: 0;
+        background: black;
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .txt-menu-left{
+        margin: 0;
+        font-size: 19px;
+        padding: 15px;
+        display: block;
+        border-bottom: 2px solid var(--blue-Oscuro);
+    }
+    .txt-menu-left:hover{
+        color: var(--blue-Oscuro);
+        background-color: #bfb1f5;
+    }
+    .menu-logo-user{
+        border: none;
+    }
+    .menu-text-user{
+        display:none;
+    }
+    .logo-header{
+        height: 90%;
+    }
+}
+
+/* main */
+.option-table{
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+.option-table .col{
+    font-size: 25px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #252397;
+    display: inline-block;
+    margin: 0px;
+    background-color: var(--white);
+}
+.option-table p{
+    margin: 0;
+}
+.option-table .col:hover{
+    color: var(--white);
+    background-color: #5a57e7;
+}
+
+/* aside */
+.aside-user, .aside-laptop{
+    display: none;
+}
+.radio{
+    cursor: pointer;
+}
+.fa-info-circle{
+    opacity: 0.4;
+}
+.aside-input{
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+}
+.aside-btn{
+    width: 100%;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightskyblue;
+}
+.aside-btn:hover{
+    background-color: rgb(112, 188, 235);
+}
+@media screen and (max-width: 600px) {
+    .aside{
+        position: initial;
+        width: 100%;
+        height: auto;
+        padding: 0;
+    }
+    .aside-home{
+        padding-top: 20px;
+    }
+    .main2{
+        margin: 0px;
+    }
+}
+/* @media screen and (max-width: 1100px) {
+	table, th, thead, tbody, td{ display: block; }
+	thead { float: left;}
+	tbody {overflow-x: auto; white-space: nowrap; }
+	tr { display: inline-block;}
+} */
+
+
+/* ----------- ORDERS -----------*/
+/* ASE */
+/* aside */
+.main-orders-ase, .main-orders-coor, .alert1, .alert2, .div-table-ord{
+    display: none;
+}
+.aside-table-ord{
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 10px 0 var(--gray-box-shadow);
+}
+.aside-table-ord thead, .table-ord-coor thead{
+    background-color: var(--blue-Oscuro);
+    color: var(--white);
+}
+.aside-table-ord th, 
+.aside-table-ord td,
+.table-ord-coor th,
+.table-ord-coor td{
+    padding: 5px;
+}
+.aside-tbody-ord tr:nth-child(odd){
+    background-color: var(--white);
+}
+.inp-asi{
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+}
+.btn-aside-ord{
+    margin: 5px 5px 10px;
+}
+/* products */
+.col-orders{
+    padding: 10px;
+}
+.div-table-prod{
+    border-radius: 10px;
+    background-color: var(--white);
+    box-shadow: 0 0 10px 0 var(--gray-box-shadow);
+    padding: 10px;
+}
+.table-ord-prod{
+    width: 100%;
+}
+.table-ord-prod th{
+    padding-right: 10px;
+    border-bottom: 1px solid black;
+}
+.table-ord-prod td{
+    text-align: right;
+    border-bottom: 1px solid black;
+}
+/* COOR */
+.main-orders-coor h1{
+    margin: 30px;
+    text-align: center;
+}
