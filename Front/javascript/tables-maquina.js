@@ -6,25 +6,6 @@ const getId = (id) =>{
     return document.getElementById(id)
 }
 
-/* Event listener */
-$(function(){
-    $('.div-bars').click(function(){
-        $(".nav-menu-popup").css('display', 'block');
-        $(".nav-menu-popup").animate({opacity:'0.4', duration:500});
-        $(".nav-menu-left").animate({width:'200px', easing:'ease', duration:500});
-    })
-    $(".nav-menu-popup, .txt-menu-left").click(function(){
-        $(".nav-menu-left").animate({width:'0px', easing:'ease', duration:500});
-        $(".nav-menu-popup").animate({opacity:'0', duration:500});
-        setTimeout(function(){
-            $(".nav-menu-popup").css('display', 'none');
-        }, 500)
-    })
-    $(".option-table .col").hover(function(){
-        $(".option-table .col").css("background-color", "green")
-    })
-})
-
 const optionTable = (opc) => {
     $(".option-table .col").css({"background-color": "white", "color": "black"})
     $(opc).css({"background-color": "#5a57e7", "color": "white"})
@@ -40,9 +21,38 @@ const beforeGet = (d1, d2) => {
 
 const afterGet = (nombres, aside, url, opc) => {
     let asideInputs =""
-    for(const label of nombres){
+    
+    for(let label of nombres){
+        let type = "text";
+        let inpLabel = label;
+        if(label == "birthtDay"){
+            label = "birthDay"
+            type = "date"
+        }
+        if(label == "monthBirthtDay"){
+            label = "monthBirthDay"
+            type = "number"
+        }
+        if(label == "id" || label == "identification" || label == "cellPhone" || label == "price" || label == "quantity" ){
+            type = "number"
+        }
         asideInputs += "<label class='aside-label'>"+label[0].toUpperCase() + label.slice(1)+"</label>"
-        asideInputs += "<input type='text' id="+label+" class='aside-input' required>"
+        if(label == "type"){
+            asideInputs += "<select name='type' class='aside-input' id='type' required>";
+            asideInputs += "<option value='' selected disabled hidden></option>";
+            asideInputs += "<option value='ASE'>ASE</option>";
+            asideInputs += "<option value='COORD'>COORD</option>";
+            asideInputs += "<option value='ADM'>ADM</option></select>";
+            continue;
+        }
+        if(label == "availability"){
+            asideInputs += "<select name='availability' class='aside-input' id='availability' required>";
+            asideInputs += "<option value='' selected disabled hidden></option>";
+            asideInputs += "<option value='true'>True</option>";
+            asideInputs += "<option value='false'>False</option></select>";
+            continue;
+        }
+        asideInputs += "<input type="+type+" id="+inpLabel+" class='aside-input' required>"
     }
     $(aside).html(asideInputs)
     GetDelAjax(url, "GET").done(function(datos){
@@ -52,16 +62,25 @@ const afterGet = (nombres, aside, url, opc) => {
         }else{
             let thead = "<tr>";
             for(const item of datos){
-                for(const item2 in item){
-                    thead+="<th class='th-tables'>"+item2+"</th>";
+                for(let key in item){
+                    if(key == "birthtDay"){
+                        key = "birthDay"
+                    }else if(key == "monthBirthtDay"){
+                        key = "monthBirthDay"
+                    }
+                    thead+="<th class='th-tables'>"+key+"</th>";
                 }break;
             }
             thead+="<th class='th-tables'>Upd/Del</th></tr>";
             let tbody;
             for(const item of datos){
                 tbody+="<tr>";
-                for(const item2 in item){
-                    tbody+="<td class='td-tables'>"+item[item2]+"</td>";
+                for(const key in item){
+                    let val = item[key];
+                    if(key == "birthtDay"){
+                        val = new Date(val).toLocaleDateString()
+                    }
+                    tbody+="<td class='td-tables'>"+val+"</td>";
                 }
                 tbody+="<td class='td-tables'><button class='btn1-table' onclick='setInputs("+item.id+", "+opc+")'><i class='fas fa-pencil-alt'></i></button>"
                 if(opc == 1){
@@ -69,7 +88,6 @@ const afterGet = (nombres, aside, url, opc) => {
                 }else{
                     tbody+="<button class='btn2-table' onclick='DelLaptop("+item.id+")'><i class='fas fa-trash-alt'></i></button></td></tr>";
                 }
-                
             }
             $(".table thead").html(thead)
             $(".table tbody").html(tbody)
@@ -82,14 +100,14 @@ const getUsers = async (opc) => {
     optionTable(opc)
     beforeGet('block', 'none')
     let nombres = ["id", "identification", "name", "birthtDay", "monthBirthtDay", "address", "cellPhone", "email", "password",  "zone", "type"]
-    afterGet(nombres, ".aside-inputs-user", "http://localhost:8080/api/user/all", 1)
+    afterGet(nombres, ".aside-inputs-user", "http://144.22.242.102/api/user/all", 1)
 }
 
 const getLaptops = async (opc) => {
     optionTable(opc)
     beforeGet('none', 'block')
     let nombres = ["id", "brand", "model", "procesor", "os", "description", "memory", "hardDrive", "availability", "price", "quantity", "photography"]
-    afterGet(nombres, ".aside-inputs-laptop", "http://localhost:8080/api/laptop/all", 2)
+    afterGet(nombres, ".aside-inputs-laptop", "http://144.22.242.102/api/laptop/all", 2)
     asideOpcion()
 }
 
@@ -102,15 +120,11 @@ const asideOpcion = () => {
         inpId.title = "Disabled"
         $("#id").css("opacity", "0.3")
         $("#id").val("")
-        console.log("post")
     }else{
         inpId.disabled = false;
         inpId.title = ""
         $("#id").css("opacity", "1")
-        console.log("put")
     }
-    console.log(opc)
-    console.log(inpId)
 }
 
 const setInputs = (id, opc) => {
@@ -118,15 +132,18 @@ const setInputs = (id, opc) => {
     asideOpcion()
     let url = ""
     if(opc == 1){
-        url="http://localhost:8080/api/user/"+id;
+        url="http://144.22.242.102/api/user/"+id;
     }else{
-        url="http://localhost:8080/api/laptop/"+id;
+        url="http://144.22.242.102/api/laptop/"+id;
     }
     
     GetDelAjax(url, "GET").done(function(datos){
-        //This method is so crazy
-        for(const item in datos){
-            $("#"+item+"").val(datos[item])
+        for(const key in datos){
+            let val = datos[key];
+            if(key == "birthtDay"){
+                val = val.substr(0, 10)
+            }
+            $("#"+key+"").val(""+val+"")
         }
     })
 }
@@ -140,12 +157,12 @@ const vacios = (myData) => {
 }
 const PutUser = async () => {
     let email;
-    let url = "http://localhost:8080/api/user/"+$("#id").val();
+    let url = "http://144.22.242.102/api/user/"+$("#id").val();
     let getId = GetDelAjax(url, "GET").done(function(datos){
         email = datos.email;
     })
     await getId; 
-    GetDelAjax("http://localhost:8080/api/user/emailexist/"+$("#email").val(), "GET").done(function(datos){
+    GetDelAjax("http://144.22.242.102/api/user/emailexist/"+$("#email").val(), "GET").done(function(datos){
         if(datos & email != $("#email").val()){
             alert("La direccion de correo ya existe")
             $("#email").css("border", "2px solid red")
@@ -164,17 +181,17 @@ const PutUser = async () => {
                 type:$("#type").val(),
             };
             vacios(myData)
-            PosPutAjax("http://localhost:8080/api/user/update", "PUT", myData).done(function(datos){
+            PosPutAjax("http://144.22.242.102/api/user/update", "PUT", myData).done(function(datos){
                 $(".aside-input").val("")
-                getUsers();
+                getUsers(".opt-users");
                 alert("Datos Actualizados!")
             })
         }
     })
 }
 const DelUser = (id) => {
-    GetDelAjax("http://localhost:8080/api/user/"+id, "DELETE").done(function(datos){
-        getUsers();
+    GetDelAjax("http://144.22.242.102/api/user/"+id, "DELETE").done(function(datos){
+        getUsers(".opt-users");
         alert("Datos Borrados!")
     })
 }
@@ -197,23 +214,22 @@ const PostPutLaptop = () => {
     let opc = $('input:radio[name=optionLaptop]:checked').val()
     let url;
     if(opc == "POST"){
-        url="http://localhost:8080/api/laptop/new"
+        url="http://144.22.242.102/api/laptop/new"
         alerta="Datos Guardados!";
     }else{
-        url="http://localhost:8080/api/laptop/update"
+        url="http://144.22.242.102/api/laptop/update"
         alerta="Datos Actualizados!";
     }
     vacios(myData)
-    console.log(myData)
     PosPutAjax(url, opc, myData).done(function(datos){
         $(".aside-input").val("")
-        getLaptops();
+        getLaptops(".opt-laptops");
         alert(alerta)
     })
 }
 const DelLaptop = (id) => {
-    GetDelAjax("http://localhost:8080/api/laptop/"+id, "DELETE").done(function(datos){
-        getLaptops();
+    GetDelAjax("http://144.22.242.102/api/laptop/"+id, "DELETE").done(function(datos){
+        getLaptops(".opt-laptops");
         alert("Datos Borrados!")
     })
 }

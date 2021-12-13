@@ -2,11 +2,7 @@
 localhost:8080
 144.22.242.102
 */
-/* const setPerfil = () =>{
-    let id = sessionStorage.getItem("idUser")
-    GetDelAjax("http://localhost:8080/api/user/"+id).done(function(datos){
-    })
-}*/
+
 const addOrder = () =>{
     let tRow = document.querySelectorAll(".aside-tbody-ord tr")
     let nextId = tRow.length+1
@@ -31,7 +27,7 @@ const sendOrder = async () =>{
     let quantities = {};
 
     let idUser = sessionStorage.getItem("idUser")
-    await GetDelAjax("http://localhost:8080/api/user/"+idUser, "GET").done(function(datos){
+    await GetDelAjax("http://144.22.242.102/api/user/"+idUser, "GET").done(function(datos){
         salesMan = {...datos}
     })
 
@@ -40,7 +36,7 @@ const sendOrder = async () =>{
     for(i=0;i<inpId.length;i++){
         let idLap = inpId[i].value
 
-        await GetDelAjax("http://localhost:8080/api/laptop/"+idLap, "GET").done(function(datos){
+        await GetDelAjax("http://144.22.242.102/api/laptop/"+idLap, "GET").done(function(datos){
             products[i+1] = {...datos}
         });
 
@@ -55,14 +51,14 @@ const sendOrder = async () =>{
         products: products,
         quantities: quantities
     };
-    await PosPutAjax("http://localhost:8080/api/order/new", "POST", myData).done(function(datos){
+    await PosPutAjax("http://144.22.242.102/api/order/new", "POST", myData).done(function(datos){
         alert("Your order code is: #"+datos.id+""+datos.salesMan.id)
         location.reload()
     })
 }
 
 const setOrderProducts = () =>{
-    GetDelAjax("http://localhost:8080/api/laptop/all", "GET").done(function(datos){
+    GetDelAjax("http://144.22.242.102/api/laptop/all", "GET").done(function(datos){
         if(datos.length == 0){
             $(".alert1").css("display", "block")
         }else{
@@ -88,7 +84,7 @@ const setOrderProducts = () =>{
 
 const setAseOrders =  async () =>{
     let user = await getIdUser()
-    GetDelAjax("http://localhost:8080/api/order/zona/"+user.zone, "GET").done(function(datos){
+    GetDelAjax("http://144.22.242.102/api/order/zona/"+user.zone, "GET").done(function(datos){
         if(datos.length == 0){
             $(".alert2").css("display", "block")
         }else{
@@ -113,7 +109,7 @@ const setAseOrders =  async () =>{
 
 const orderDetails = (id) =>{
     $(".table tbody").empty()
-    GetDelAjax("http://localhost:8080/api/order/"+id, "GET").done(function(datos){
+    GetDelAjax("http://144.22.242.102/api/order/"+id, "GET").done(function(datos){
         let date = new Date(datos.registerDay).toLocaleDateString()
         let options = ["Pendiente", "Aprobada", "Rechazada"]
         for(const opt of options){
@@ -189,7 +185,7 @@ const saveStatus = async (id) =>{
         id:id,
         status: $(".select").val()
     };
-    await PosPutAjax("http://localhost:8080/api/order/update", "PUT", myData).done(function(datos){
+    await PosPutAjax("http://144.22.242.102/api/order/update", "PUT", myData).done(function(datos){
         alert("Updated status to: "+$(".select").val())
     })
     hideOrderDetails()

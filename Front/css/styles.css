@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #f1f1f8;
+    background-color: #f4f2ff;
 }
 :root{
     --blue-header: #7d60ff;
@@ -199,6 +199,21 @@ input.form-control:focus, button.btn-index:focus{
 .nav-menu{
     margin: 0px 10px;
 }
+.nav-menu-popup, .nav-menu-popup2{
+    opacity: 0;
+    background: black;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+}
+.nav-menu-popup2{
+   /*  background: none; */
+   z-index:unset;
+}
 .nav-menu-left{
     display: none;
 }
@@ -211,11 +226,7 @@ input.form-control:focus, button.btn-index:focus{
 .txt-menu:hover{
     color: var(--blue-Oscuro);
 }
-.t-m-name{
-    color: var(--blue-Oscuro);
-    font-weight: 500;
-    font-size: 19px;
-}
+
 .menu-logo-user{
     border-left: 2px solid var(--blue-Oscuro);
 }
@@ -223,11 +234,58 @@ input.form-control:focus, button.btn-index:focus{
     margin-left: 10px;
     font-size: 35px;
     color: var(--blue-Oscuro);
+    cursor: pointer;
+}
+.div-menu-user{
+    cursor: pointer;
+}
+.t-m-name{
+    color: var(--blue-Oscuro);
+    font-weight: 500;
+    font-size: 19px;
+    margin-left: 5px;
+    margin-right: 0;
+}
+.fa-caret-down{
+    margin-right: 10px;
+}
+.info-user{
+    position: fixed;
+    right: 20px;
+    top: 55px;
+    display: none;
+    min-width: 200px;
+    padding: 10px 10px 5px;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--gray-box-shadow);
+}
+.info-user h3, .info-user label, .info-user p, .info-user hr{
+    margin-bottom: 5px;
+}
+.info-user hr{
+    margin: 0px; /* esto esta muy mal .__. */
+    margin-bottom: 5px;
+}
+.logout{
+    display: inline-block;
+    color: var(--white);
+    padding: 0 10px;
+    background-color: #e76161;
+    cursor: pointer;
+    border: 1px solid black;
+}
+.logout:hover{
+    background-color: rgb(221, 58, 58);
 }
 
 @media screen and (max-width: 750px) {
     .div-bars{
         display: flex;/* Idk why fix this */
+    }
+    .logo-header{
+        height: 90%;
     }
     .nav-father{
         margin-right: 20px;
@@ -244,17 +302,7 @@ input.form-control:focus, button.btn-index:focus{
         overflow-y: auto;
         width: 0;
         background-color: #6b52db;
-        /* padding: 20px; */
-    }
-    .nav-menu-popup{
-        opacity: 0;
-        background: black;
-        display: none;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        z-index: 300;
     }
     .txt-menu-left{
         margin: 0;
@@ -270,11 +318,8 @@ input.form-control:focus, button.btn-index:focus{
     .menu-logo-user{
         border: none;
     }
-    .menu-text-user{
+    .t-m-name, .fa-caret-down{
         display:none;
-    }
-    .logo-header{
-        height: 90%;
     }
 }
 
@@ -299,7 +344,6 @@ input.form-control:focus, button.btn-index:focus{
     color: var(--white);
     background-color: #5a57e7;
 }
-
 /* aside */
 .aside-user, .aside-laptop{
     display: none;
@@ -357,23 +401,9 @@ input.form-control:focus, button.btn-index:focus{
     display: none;
 }
 .aside-table-ord{
-    width: 100%;
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 0 10px 0 var(--gray-box-shadow);
-}
-.aside-table-ord thead, .table-ord-coor thead{
-    background-color: var(--blue-Oscuro);
-    color: var(--white);
-}
-.aside-table-ord th, 
-.aside-table-ord td,
-.table-ord-coor th,
-.table-ord-coor td{
-    padding: 5px;
-}
-.aside-tbody-ord tr:nth-child(odd){
-    background-color: var(--white);
 }
 .inp-asi{
     width: 100%;
