@@ -62,7 +62,10 @@ const afterGet = (nombres, aside, url, opc) => {
         }else{
             let thead = "<tr>";
             for(const item of datos){
+                console.log(item)
                 for(let key in item){
+                    console.log(key)
+                    console.log(item[key] = obj.name)
                     if(key == "birthtDay"){
                         key = "birthDay"
                     }else if(key == "monthBirthtDay"){

@@ -83,7 +83,7 @@ const setOrderProducts = () =>{
 }
 
 const setAseOrders =  async () =>{
-    let user = await getIdUser()
+    let user = await getIdUser() //function on index-html
     GetDelAjax("http://144.22.242.102/api/order/zona/"+user.zone, "GET").done(function(datos){
         if(datos.length == 0){
             $(".alert2").css("display", "block")
