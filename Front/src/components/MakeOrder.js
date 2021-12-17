@@ -145,7 +145,7 @@ const MakeOrder = () =>{
         <>
             <div className="main main-orders-ase">
                 <aside className="aside aside-orders">
-                    <h2 className="aside-name">Make your order</h2>
+                    <h3 className="aside-name">Make your order</h3>
                         <form onSubmit={postOrders}>
                             <table className="table aside-table-ord" style={{marginBottom: '0'}}>
                                 <thead className="aside-thead">
@@ -187,7 +187,7 @@ const MakeOrder = () =>{
                         </form>
                 </aside>
                 <div className="main2 main2-orders">
-                    <h1>Products</h1>
+                    <h1>Laptops</h1>
                     <h2 className="alert1">{myAlert}</h2>
                     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 row-tables-prod">
                         {setTbody()}

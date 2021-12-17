@@ -2,10 +2,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink, Routes, Route } from 'react-router-dom';
 import Header from './Header';
+import Laptops from './Laptops';
 import MakeOrder from './MakeOrder';
 import MyOrders from './MyOrders';
 import OrdersCoor from './Orders-coor';
 import Tables from './Tables';
+import Users from './Users';
 
 const Home = () =>{
     //let navigate = useNavigate();
@@ -49,9 +51,11 @@ const Home = () =>{
             <Header/>
             <Routes>
                 <Route path="/" element={<Welcome />} />
-                <Route path="tables/*" element={<Tables />} />
-                <Route path="orders/*" element={pathOrder} />
-                <Route path="myorders/*" element={<MyOrders/>} />
+                {/* <Route path="tables/*" element={<Tables />} /> */}
+                <Route path="orders" element={pathOrder} />
+                <Route path="myorders" element={<MyOrders/>} />
+                <Route path="users" element={<Users />} />
+                <Route path="laptops" element={<Laptops />} />
             </Routes>
         </>
     )

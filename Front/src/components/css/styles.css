@@ -352,9 +352,22 @@ input.form-control:focus, button.btn-index:focus{
     background-color: #5a57e7;
 }
 /* aside */
+.div-filter input, .div-filter label{
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.div-filter-type{
+    margin: 20px 0;
+}
+.div-filter-type select, .div-filter-type input{
+    width: 100%;
+    height: 30px;
+}
 .aside-name{
     display: inline-block;
-    margin-right: 10px; 
+    margin: 20px 15px 10px 0; 
 }
 .fa-info-circle{
     opacity: 0.4;
@@ -458,21 +471,9 @@ input.form-control:focus, button.btn-index:focus{
 
 /* ----------- MY ORDERS -----------*/
 /* aside */
-.div-filter input, .div-filter label{
-    font-size: 20px;
-    margin-left: 5px;
-    margin-top: 5px;
-    cursor: pointer;
-}
-.div-filter-type{
-    margin: 20px 0;
-}
-.div-filter-type select, .div-filter-type input{
-    width: 100%;
-    height: 30px;
-}
+
 /* main */
-.main-orders-myorder h1:first-child{
+.title-page{
     margin: 10px 0 30px;
     text-align: center;
 }

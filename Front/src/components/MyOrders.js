@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const MyOrders = () =>{
 
     const [filter, setFilter ] = useState({
-        radio: "None",
+        radio: "",
         status: "Pendiente",
         date: ""
     })
@@ -38,7 +38,7 @@ const MyOrders = () =>{
     const filterType = () =>{
         if(filter.radio === "status"){
             return(
-                <select value={filter.status} onChange={statusChange}>
+                <select value={filter.status} onChange={statusChange} required>
                     <option value="Pendiente">Pendiente</option>
                     <option value="Aprobada">Aprobada</option>
                     <option value="Rechazada">Rechazada</option>
@@ -46,7 +46,7 @@ const MyOrders = () =>{
             )
         }else if(filter.radio === "date"){
             return(
-                <input type="date" value={filter.date} onChange={dateChange}></input>
+                <input type="date" value={filter.date} onChange={dateChange} required></input>
             )
         }
         return []
@@ -73,6 +73,29 @@ const MyOrders = () =>{
     useEffect(  () =>{
         callOrders()
     }, [])
+
+    function applyFilter (event){
+        event.preventDefault()
+        let id = sessionStorage.getItem("idUser")
+        if(filter.radio === "date"){
+            axios.get("http://144.22.242.102/api/order/date/"+filter.date+"/"+id).then(function(res){
+                if(res.data.length === 0){
+                    setAlert("There isn't any order at date: "+filter.date)
+                }
+                afterGet(res.data)
+            }); 
+        }else if(filter.radio === "status"){
+            axios.get("http://144.22.242.102/api/order/state/"+filter.status+"/"+id).then(function(res){
+                if(res.data.length === 0){
+                    setAlert("There isn't any order with status: "+filter.status)
+                }
+                afterGet(res.data)
+            }); 
+        }else{
+            setAlert("")
+            callOrders()
+        }
+    }
 
     const setTbodyOrders = () => {
         if(orders.length === 0){
@@ -141,35 +164,11 @@ const MyOrders = () =>{
         setOrderDetailsTbody(tOrderDetailTr)
     }
 
-    
-
-    function applyFilter (){
-        setAlert("")
-        let id = sessionStorage.getItem("idUser")
-        if(filter.radio === "date"){
-            axios.get("http://144.22.242.102/api/order/date/"+filter.date+"/"+id).then(function(res){
-                if(res.data.length === 0){
-                    setAlert("There isn't any order at date: "+filter.date)
-                }
-                afterGet(res.data)
-            }); 
-        }else if(filter.radio === "status"){
-            axios.get("http://144.22.242.102/api/order/state/"+filter.status+"/"+id).then(function(res){
-                if(res.data.length === 0){
-                    setAlert("There isn't any order with status: "+filter.status)
-                }
-                afterGet(res.data)
-            }); 
-        }else{
-            callOrders()
-        }
-    }
-
     return(
         <>
             <div className="main main-orders">
                 <div className="main2 main-orders-myorder">
-                    <h1>My orders</h1>
+                    <h1 className="title-page">My orders</h1>
                     <h2 className="alert2">{alert}</h2>
                     <div className="div-table div-table-ord">
                         <table className="table table-ord-myorder" style={{marginBottom: '0'}}>
@@ -196,7 +195,7 @@ const MyOrders = () =>{
                     <h2 className="aside-name-myorder">Filtter by: </h2>
                     <div onChange={filterChange} className="div-filter">
                         <div>
-                            <input id="radioNone" name="filter" type="radio" className="radio filter-my-order" value="none"/>
+                            <input id="radioNone" name="filter" type="radio" className="radio filter-my-order" value="none" defaultChecked/>
                             <label htmlFor="radioNone">None</label>
                         </div>
                         <div>
@@ -208,12 +207,12 @@ const MyOrders = () =>{
                             <label htmlFor="radioStatus">Status</label>
                         </div>
                     </div>
-                    <div className="div-filter-type">
-                        {filterType()}
-                    </div>
-                    <button onClick={applyFilter} className="aside-btn">Apply filter</button>
-                    
-
+                    <form onSubmit={applyFilter}>
+                        <div className="div-filter-type">
+                            {filterType()}
+                        </div>
+                        <button type="submit" className="aside-btn">Apply filter</button>
+                    </form>
                 </aside>
             </div>
         </>

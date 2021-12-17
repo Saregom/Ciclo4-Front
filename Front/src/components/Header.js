@@ -24,7 +24,7 @@ const Header = () =>{
             if(type === "ASE"){
                 setNameHeader({...nameHeader, 
                     order:"Make order",
-                    myOrder:<NavLink className="txt-menu" exact="true" to="/home/myorders">My Orders</NavLink>
+                    myOrder:<NavLink className="txt-menu" exact="true" to="/home/myorders">My orders</NavLink>
                 }) 
             }else if(type === "COORD"){
                 setNameHeader({...nameHeader, order:"Orders"})
@@ -43,9 +43,11 @@ const Header = () =>{
             </div>
             <div className="nav-father">
                 <nav className="nav-menu">
-                    <NavLink className="txt-menu" exact="true" to="/home/tables">Tables</NavLink>
+                    {/* <NavLink className="txt-menu" exact="true" to="/home/tables">Tables</NavLink> */}
                     {nameHeader.myOrder}
                     <NavLink className="txt-menu" exact="true" to="/home/orders">{nameHeader.order}</NavLink>
+                    <NavLink className="txt-menu" exact="true" to="/home/laptops">Laptops</NavLink>
+                    <NavLink className="txt-menu" exact="true" to="/home/users">Users</NavLink>
                 </nav>
                 {/* <div className="nav-menu-popup"></div>
                 <nav className="nav-menu-left">

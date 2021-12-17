@@ -11,10 +11,10 @@ const Users = () =>{
         name: "",
         birthtDay: "",
         monthBirthtDay: "",
-        email: "",
-        password: "",
         address: "",
         cellPhone: "",
+        email: "",
+        password: "",
         zone: "",
         type: "",
     });
@@ -102,7 +102,7 @@ const Users = () =>{
     }
 
     return(
-        <>
+        <div className="main main-tables">
             <div className="main2 main2-tables">
                 <div className="div-table">
                     <table className="table" style={{marginBottom: '0'}}>
@@ -122,7 +122,7 @@ const Users = () =>{
                     </form>
                 </div>
             </aside>
-        </>
+        </div>
     )
 }
 
