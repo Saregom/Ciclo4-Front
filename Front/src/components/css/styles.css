@@ -2,8 +2,9 @@
 *{
     box-sizing: border-box;
 }
-body{
+.body{
     background-color: #f4f2ff;
+    height: 100%;
 }
 :root{
     --blue-header: #7d60ff;
@@ -37,7 +38,7 @@ body{
 .table{
     width: 100%;
     text-align: center;
-    margin: 0;
+    margin-bottom: 0;
 }
 .table thead{
     background-color: var(--blue-Oscuro);
@@ -54,6 +55,9 @@ body{
 }
 .btn2-table{
     background-color: lightcoral;
+}
+.NavLink{
+    text-decoration: none;
 }
 
 /* ----------- INDEX -----------*/
@@ -83,8 +87,14 @@ body{
     }
 } */
 /* cuerpo index */
-.con-index{
+.cont{
+    margin: auto;
+    width: 100%;
     max-width: 450px;
+    padding: 0 20px 20px;
+}
+.cont-signin{
+    max-width: 600px;
 }
 .div-logo{
     text-align: center;
@@ -100,17 +110,13 @@ body{
     border-radius: 10px;
     box-shadow: 0 0 20px 0 #C2C2C2;
 }
-.title-index{
+.div-index h3{
      font-family: Century Gothic;
-}
-.divSignin{
-    display: none;
 }
 /* iputs */
 .form-floating .form-control, .selected{
     margin-top: 20px;
     width: 100%;
-    height: 50px;
     border: none;
     border-radius: 0;
     border-bottom: 2px solid black;
@@ -119,10 +125,8 @@ input.form-control:focus, button.btn-index:focus{
     box-shadow: 0 0;
 }
 .form-floating label{
-    padding: 0px;
-    height: 25px;
-    top: 30px;
-    left: 20px;
+    margin-top: 15px;
+    margin-left: 10px;
 }
 .required{
     text-align: left;
@@ -158,8 +162,9 @@ input.form-control:focus, button.btn-index:focus{
 .header{
     height: 55px;
     background-color: var(--blue-header);
-    display: none;
+    display: flex;
     position: sticky;
+    align-items: center8;
     top: 0;
     z-index: 100;
 }
@@ -183,6 +188,9 @@ input.form-control:focus, button.btn-index:focus{
 }
 .div-bars:hover {
     background-color: #7b62e9;
+}
+.logo-header{
+    height: 100%;
 }
 .logo-header{
     height: 100%;
@@ -211,8 +219,7 @@ input.form-control:focus, button.btn-index:focus{
     z-index: 200;
 }
 .nav-menu-popup2{
-   /*  background: none; */
-   z-index:unset;
+   z-index: unset; /* check this pls */
 }
 .nav-menu-left{
     display: none;
@@ -282,7 +289,7 @@ input.form-control:focus, button.btn-index:focus{
 
 @media screen and (max-width: 750px) {
     .div-bars{
-        display: flex;/* Idk why fix this */
+        display: flex;
     }
     .logo-header{
         height: 90%;
@@ -313,7 +320,7 @@ input.form-control:focus, button.btn-index:focus{
     }
     .txt-menu-left:hover{
         color: var(--blue-Oscuro);
-        background-color: #bfb1f5;
+        background-color: 8#bfb1f5;
     }
     .menu-logo-user{
         border: none;
@@ -325,7 +332,7 @@ input.form-control:focus, button.btn-index:focus{
 
 /* main */
 .option-table{
-    padding: 0 10px;
+    padding: 0 10px 0 300px;
     margin-bottom: 10px;
 }
 .option-table .col{
@@ -333,23 +340,21 @@ input.form-control:focus, button.btn-index:focus{
     cursor: pointer;
     text-align: center;
     border: 2px solid #252397;
-    display: inline-block;
-    margin: 0px;
+    padding: 0;
     background-color: var(--white);
 }
-.option-table p{
-    margin: 0;
+.option-table .NavLink{
+    display: block;
+    color: var(--blue-Oscuro);
 }
-.option-table .col:hover{
+.option-table .NavLink:hover{
     color: var(--white);
     background-color: #5a57e7;
 }
 /* aside */
-.aside-user, .aside-laptop{
-    display: none;
-}
-.radio{
-    cursor: pointer;
+.aside-name{
+    display: inline-block;
+    margin-right: 10px; 
 }
 .fa-info-circle{
     opacity: 0.4;
@@ -373,6 +378,9 @@ input.form-control:focus, button.btn-index:focus{
     background-color: rgb(112, 188, 235);
 }
 @media screen and (max-width: 600px) {
+    .option-table{
+        padding: 0 10px 10px;
+    }
     .aside{
         position: initial;
         width: 100%;
@@ -397,14 +405,15 @@ input.form-control:focus, button.btn-index:focus{
 /* ----------- ORDERS -----------*/
 /* ASE */
 /* aside */
-.main-orders-ase, .main-orders-coor, .alert1, .alert2, .div-table-ord{
-    display: none;
+.alert1, .alert2{
+    text-align: center;
 }
 .aside-table-ord{
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 0 10px 0 var(--gray-box-shadow);
 }
+
 .inp-asi{
     width: 100%;
     border: none;
@@ -412,7 +421,7 @@ input.form-control:focus, button.btn-index:focus{
     background-color: transparent;
 }
 .btn-aside-ord{
-    margin: 5px 5px 10px;
+    margin: 5px 7px 10px;
 }
 /* products */
 .col-orders{
@@ -437,6 +446,37 @@ input.form-control:focus, button.btn-index:focus{
 }
 /* COOR */
 .main-orders-coor h1{
+    margin: 30px;
+    text-align: center;
+}
+.div-table-status{
+    margin: 10px auto 0;
+    max-width: 300px;
+    width: 100%;
+}
+
+
+/* ----------- MY ORDERS -----------*/
+/* aside */
+.div-filter input, .div-filter label{
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.div-filter-type{
+    margin: 20px 0;
+}
+.div-filter-type select, .div-filter-type input{
+    width: 100%;
+    height: 30px;
+}
+/* main */
+.main-orders-myorder h1:first-child{
+    margin: 10px 0 30px;
+    text-align: center;
+}
+.details{
     margin: 30px;
     text-align: center;
 }
