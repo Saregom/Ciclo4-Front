@@ -75,6 +75,13 @@ const Users = () =>{
             let userTd = []
             
             for(const key in users){
+                if(key === "birthtDay"){
+                    let myDate = new Date(users[key])
+                    myDate.setMinutes(myDate.getMinutes() + myDate.getTimezoneOffset())
+                    let date = myDate.toLocaleDateString()
+                    userTd.push(<td key={key}>{date}</td>)
+                    continue;
+                }
                 userTd.push(<td key={key}>{users[key]}</td>)
             }
             userTd.push(
@@ -102,7 +109,7 @@ const Users = () =>{
     }
 
     return(
-        <div className="main main-tables">
+        <>
             <div className="main2 main2-tables">
                 <div className="div-table">
                     <table className="table" style={{marginBottom: '0'}}>
@@ -122,7 +129,7 @@ const Users = () =>{
                     </form>
                 </div>
             </aside>
-        </div>
+        </>
     )
 }
 

@@ -12,10 +12,10 @@ const Tables = () =>{
         <div className="main main-tables">
             <div className="row option-table">
                 <div className="col opt-users">
-                    <NavLink className="NavLink" to="/home/tables/users">Users</NavLink>
+                    <NavLink className="NavLink" to="/home/editdata/users">Users</NavLink>
                 </div>
                 <div className="col opt-laptops">
-                    <NavLink className="NavLink" to="/home/tables/laptops">Laptops</NavLink>
+                    <NavLink className="NavLink" to="/home/editdata/laptops">Laptops</NavLink>
                 </div>
             </div>
             <Routes>

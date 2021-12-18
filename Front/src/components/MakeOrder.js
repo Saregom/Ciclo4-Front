@@ -76,19 +76,19 @@ const MakeOrder = () =>{
         let isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
         let salesMan = {}, products = {}, quantities = {}
 
-        //let id = sessionStorage.getItem("idUser")
-        await axios.get("http://144.22.242.102/api/user/3").then(function(res){
+        let id = sessionStorage.getItem("idUser")
+        await axios.get(`http://144.22.242.102/api/user/${id}`).then(function(res){
             salesMan = {...res.data}
         }); 
         
-        let i = 1
+        let indx = 1
         for(const id in OrdProd){
             let idLap = OrdProd[id]
-            await axios.get("http://144.22.242.102/api/laptop/"+idLap).then(function(res){
-                products[i] = {...res.data}
+            await axios.get(`http://144.22.242.102/api/laptop/${idLap}`).then(function(res){
+                products[indx] = {...res.data}
             });
-            quantities[i] = OrdQuan[id]
-            i++
+            quantities[indx] = OrdQuan[id]
+            indx++
         }
         let myData={
             registerDay: isoDateTime,
@@ -144,14 +144,14 @@ const MakeOrder = () =>{
     return(
         <>
             <div className="main main-orders-ase">
-                <aside className="aside aside-orders">
+                <aside className="aside aside-top">
                     <h3 className="aside-name">Make your order</h3>
                         <form onSubmit={postOrders}>
                             <table className="table aside-table-ord" style={{marginBottom: '0'}}>
                                 <thead className="aside-thead">
                                     <tr>
                                         <th>Del</th>
-                                        <th>Prod. Id</th>
+                                        <th>Lap. Id</th>
                                         <th>Quantity</th>
                                     </tr>
                                 </thead>

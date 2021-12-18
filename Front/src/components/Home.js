@@ -1,38 +1,37 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Birthdays from './Birthdays';
+import Catalog from './Catalog';
 import Header from './Header';
-import Laptops from './Laptops';
 import MakeOrder from './MakeOrder';
 import MyOrders from './MyOrders';
-import OrdersCoor from './Orders-coor';
+import MyProfile from './MyProfile';
+import OrdersCoor from './OrdersCoor';
 import Tables from './Tables';
-import Users from './Users';
 
 const Home = () =>{
-    //let navigate = useNavigate();
+    let navigate = useNavigate();
+
     const [pathOrder, setPathOrder ] = useState(<></>)
 
     useEffect(() =>{
-        /* if (!sessionStorage.getItem('idUser')) {
-            return navigate("/", { replace: true });
-            //alert("You must logued first")
-        } */
-        let id = sessionStorage.getItem("idUser")
-        let type
-        axios.get("http://144.22.242.102/api/user/"+id).then(function(res){
-            type = res.data.type
-            if(type === "ASE"){
-                setPathOrder(<MakeOrder/>) 
-            }else if(type === "COORD"){
-                setPathOrder(<OrdersCoor/>)
+            let id = sessionStorage.getItem("idUser")
+            if (id==null) {
+                alert("You must logued first")
+                navigate("/signin", { replace: true });
+                return;
+            }else{
+                axios.get(`http://144.22.242.102/api/user/${id}`).then(function(res){
+                    let type = res.data.type
+                    if(type === "ASE" || type === "CLIENT"){
+                        setPathOrder(<MakeOrder/>) 
+                    }else if(type === "COORD"){
+                        setPathOrder(<OrdersCoor/>)
+                    }
+                });
             }
-        }); 
     }, [])
-
-    const removeIdUser = () =>{
-        sessionStorage.removeItem("idUser")
-    }
 
     const Welcome = () =>{
         return(
@@ -41,23 +40,25 @@ const Home = () =>{
                     <h1 className="welcome">Welcome to Ocho Bits web page!!</h1>
                     <h2 className="welcome2">Start by navigating through the menu</h2>
                 </div>
-                <NavLink className="txt" exact="true" to="/"><button className="btn-index btn-green" onClick={removeIdUser}>Logout</button></NavLink>
             </div>
         )
     }
     
     return(
-        <>
+        <div style={{height: "100%"}}>
             <Header/>
-            <Routes>
-                <Route path="/" element={<Welcome />} />
-                {/* <Route path="tables/*" element={<Tables />} /> */}
-                <Route path="orders" element={pathOrder} />
-                <Route path="myorders" element={<MyOrders/>} />
-                <Route path="users" element={<Users />} />
-                <Route path="laptops" element={<Laptops />} />
-            </Routes>
-        </>
+            <div style={{paddingTop: "55px", height: "100%"}}>
+                <Routes>
+                    <Route path="/" element={<Welcome />} />
+                    <Route path="catalog" element={<Catalog />} />
+                    <Route path="birthdays" element={<Birthdays />} />
+                    <Route path="orders" element={pathOrder} />
+                    <Route path="myorders" element={<MyOrders/>} />
+                    <Route path="editdata/*" element={<Tables />} />
+                    <Route path="profile/*" element={<MyProfile />} />
+                </Routes>
+            </div>
+        </div>
     )
 }
 

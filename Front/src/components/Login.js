@@ -13,14 +13,14 @@ const Login = () =>{
     let navigate = useNavigate();
     const verifyUser = (event) => {
         event.preventDefault()
-        axios.get("http://144.22.242.102/api/user/"+user.email+"/"+user.password).then(function(res){
+        axios.get(`http://144.22.242.102/api/user/${user.email}/${user.password}`).then(function(res){
             const data = res.data
             if(data.id == null){
-                alert("Email o contraseña incorrectos")
+                alert("Incorrect email or password")
             }else{
                 sessionStorage.setItem("idUser", data.id)
                 navigate("/home", { replace: true });
-                alert(`Bienvenido ${data.name}`)
+                alert(`Welcome ${data.name}`)
             }
         });
     }
@@ -29,10 +29,6 @@ const Login = () =>{
         const {name, value} = event.target
         setUser({...user, [name]:value})
     }
-
-    /* const submit = withRouter(({ history })) => {
-        history().push('/home');
-    }) */
 
     return(
         <div className="cont cont-login">

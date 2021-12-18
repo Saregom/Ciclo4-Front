@@ -76,6 +76,7 @@ const MyOrders = () =>{
 
     function applyFilter (event){
         event.preventDefault()
+        setAlert("")
         let id = sessionStorage.getItem("idUser")
         if(filter.radio === "date"){
             axios.get("http://144.22.242.102/api/order/date/"+filter.date+"/"+id).then(function(res){
@@ -92,7 +93,6 @@ const MyOrders = () =>{
                 afterGet(res.data)
             }); 
         }else{
-            setAlert("")
             callOrders()
         }
     }
@@ -167,6 +167,29 @@ const MyOrders = () =>{
     return(
         <>
             <div className="main main-orders">
+                <aside className="aside aside-my-orders">
+                    <h2 className="aside-name-myorder">Filtter by: </h2>
+                    <div onChange={filterChange} className="div-filter">
+                        <div>
+                            <input id="radioNone" name="filter" type="radio" className="radio filter-my-order" value="none" defaultChecked/>
+                            <label htmlFor="radioNone">None</label>
+                        </div>
+                        <div>
+                            <input id="radioDate" name="filter" type="radio" className="radio filter-my-order" value="date"/>
+                            <label htmlFor="radioDate">Date</label>
+                        </div>
+                        <div>
+                            <input id="radioStatus" name="filter" type="radio" className="radio filter-my-order" value="status"/>
+                            <label htmlFor="radioStatus">Status</label>
+                        </div>
+                    </div>
+                    <form onSubmit={applyFilter}>
+                        <div className="div-filter-type">
+                            {filterType()}
+                        </div>
+                        <button type="submit" className="aside-btn">Apply filter</button>
+                    </form>
+                </aside>
                 <div className="main2 main-orders-myorder">
                     <h1 className="title-page">My orders</h1>
                     <h2 className="alert2">{alert}</h2>
@@ -191,29 +214,6 @@ const MyOrders = () =>{
                         </table>
                     </div>
                 </div>
-                <aside className="aside aside-my-orders">
-                    <h2 className="aside-name-myorder">Filtter by: </h2>
-                    <div onChange={filterChange} className="div-filter">
-                        <div>
-                            <input id="radioNone" name="filter" type="radio" className="radio filter-my-order" value="none" defaultChecked/>
-                            <label htmlFor="radioNone">None</label>
-                        </div>
-                        <div>
-                            <input id="radioDate" name="filter" type="radio" className="radio filter-my-order" value="date"/>
-                            <label htmlFor="radioDate">Date</label>
-                        </div>
-                        <div>
-                            <input id="radioStatus" name="filter" type="radio" className="radio filter-my-order" value="status"/>
-                            <label htmlFor="radioStatus">Status</label>
-                        </div>
-                    </div>
-                    <form onSubmit={applyFilter}>
-                        <div className="div-filter-type">
-                            {filterType()}
-                        </div>
-                        <button type="submit" className="aside-btn">Apply filter</button>
-                    </form>
-                </aside>
             </div>
         </>
     )

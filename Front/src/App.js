@@ -13,7 +13,7 @@ function App() {
   /* } */
   
   return (
-      <div className='body'>
+      <div className='body' style={{height: "100%"}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />

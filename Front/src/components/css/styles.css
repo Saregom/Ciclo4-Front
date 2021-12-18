@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 .body{
-    background-color: #f4f2ff;
+    /* background-color: #f4f2ff; */
     height: 100%;
 }
 :root{
@@ -16,11 +16,12 @@
 .aside{
     position: fixed;
     top: 55px;
-    width: 270px;
+    width: 250px;
     padding: 20px;
     padding-left: 1px;
     height: calc(100vh - 55px);
     overflow-y: auto;
+    box-shadow: 6px 0 10px -5px var(--gray-box-shadow);
 }
 .main{
     padding: 20px;
@@ -163,8 +164,9 @@ input.form-control:focus, button.btn-index:focus{
     height: 55px;
     background-color: var(--blue-header);
     display: flex;
-    position: sticky;
-    align-items: center8;
+    position: fixed;
+    width: 100%;
+    align-items: center;
     top: 0;
     z-index: 100;
 }
@@ -186,7 +188,7 @@ input.form-control:focus, button.btn-index:focus{
     display: none;
     cursor: pointer;
 }
-.div-bars:hover {
+.div-bars:active {
     background-color: #7b62e9;
 }
 .logo-header{
@@ -207,7 +209,7 @@ input.form-control:focus, button.btn-index:focus{
 .nav-menu{
     margin: 0px 10px;
 }
-.nav-menu-popup, .nav-menu-popup2{
+.nav-menu-popup{
     opacity: 0;
     background: black;
     display: none;
@@ -217,9 +219,6 @@ input.form-control:focus, button.btn-index:focus{
     bottom: 0;
     left: 0;
     z-index: 200;
-}
-.nav-menu-popup2{
-   z-index: unset; /* check this pls */
 }
 .nav-menu-left{
     display: none;
@@ -243,37 +242,12 @@ input.form-control:focus, button.btn-index:focus{
     color: var(--blue-Oscuro);
     cursor: pointer;
 }
-.div-menu-user{
-    cursor: pointer;
-}
 .t-m-name{
     color: var(--blue-Oscuro);
     font-weight: 500;
     font-size: 19px;
     margin-left: 5px;
     margin-right: 0;
-}
-.fa-caret-down{
-    margin-right: 10px;
-}
-.info-user{
-    position: fixed;
-    right: 20px;
-    top: 55px;
-    display: none;
-    min-width: 200px;
-    padding: 10px 10px 5px;
-    text-align: center;
-    background-color: var(--white);
-    border-radius: 10px;
-    box-shadow: 0 0 10px var(--gray-box-shadow);
-}
-.info-user h3, .info-user label, .info-user p, .info-user hr{
-    margin-bottom: 5px;
-}
-.info-user hr{
-    margin: 0px; /* esto esta muy mal .__. */
-    margin-bottom: 5px;
 }
 .logout{
     display: inline-block;
@@ -287,7 +261,7 @@ input.form-control:focus, button.btn-index:focus{
     background-color: rgb(221, 58, 58);
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 950px) {
     .div-bars{
         display: flex;
     }
@@ -301,17 +275,18 @@ input.form-control:focus, button.btn-index:focus{
         display: none;
     }
     .nav-menu-left{
-        display: block;
         top: 0;
         left: 0;
         height: 100vh;
         position: fixed;
         overflow-y: auto;
+        display: block;
         width: 0;
         background-color: #6b52db;
         z-index: 300;
     }
     .txt-menu-left{
+        white-space: nowrap;
         margin: 0;
         font-size: 19px;
         padding: 15px;
@@ -320,12 +295,14 @@ input.form-control:focus, button.btn-index:focus{
     }
     .txt-menu-left:hover{
         color: var(--blue-Oscuro);
-        background-color: 8#bfb1f5;
+        background-color: #bfb1f5;
     }
     .menu-logo-user{
         border: none;
     }
-    .t-m-name, .fa-caret-down{
+}
+@media screen and (max-width: 575px) {
+    .t-m-name{
         display:none;
     }
 }
@@ -367,7 +344,7 @@ input.form-control:focus, button.btn-index:focus{
 }
 .aside-name{
     display: inline-block;
-    margin: 20px 15px 10px 0; 
+    margin: 0px 15px 10px 0; 
 }
 .fa-info-circle{
     opacity: 0.4;
@@ -399,9 +376,16 @@ input.form-control:focus, button.btn-index:focus{
         width: 100%;
         height: auto;
         padding: 0;
+        box-shadow: 0 0;
     }
-    .aside-home{
+    .aside{
         padding-top: 20px;
+    }
+    .aside-top{
+        padding-top: 0px;
+    }
+    .aside-top h3{
+        margin-bottom: 10px;
     }
     .main2{
         margin: 0px;
@@ -426,7 +410,6 @@ input.form-control:focus, button.btn-index:focus{
     overflow: hidden;
     box-shadow: 0 0 10px 0 var(--gray-box-shadow);
 }
-
 .inp-asi{
     width: 100%;
     border: none;
@@ -437,6 +420,9 @@ input.form-control:focus, button.btn-index:focus{
     margin: 5px 7px 10px;
 }
 /* products */
+.main2-orders h1{
+    margin: 10px 0;
+}
 .col-orders{
     padding: 10px;
 }
@@ -445,9 +431,11 @@ input.form-control:focus, button.btn-index:focus{
     background-color: var(--white);
     box-shadow: 0 0 10px 0 var(--gray-box-shadow);
     padding: 10px;
+    height: 100%;
 }
 .table-ord-prod{
     width: 100%;
+    height: 100%;
 }
 .table-ord-prod th{
     padding-right: 10px;
@@ -469,9 +457,7 @@ input.form-control:focus, button.btn-index:focus{
 }
 
 
-/* ----------- MY ORDERS -----------*/
-/* aside */
-
+/* ----------- MY ORDERS -----------*
 /* main */
 .title-page{
     margin: 10px 0 30px;
@@ -480,4 +466,120 @@ input.form-control:focus, button.btn-index:focus{
 .details{
     margin: 30px;
     text-align: center;
+}
+
+
+/* ----------- MY ORDERS -----------*/
+/* card */
+.body-profile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+    background: linear-gradient(-45deg, #9ceec5, #f8eca9) fixed;
+}
+.cont-profile{
+    background-color: var(--white);
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    align-items: center;
+    height: 350px;
+    box-shadow: 0 0 10px var(--gray-box-shadow);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.div-avatar-father{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    max-width: 170px;
+    height: 100%;
+    background: linear-gradient(to right, #c6a3dd, #9abdc9);
+    margin-right: 70px;
+    box-shadow: 0px 0 20px var(--gray-box-shadow);
+}
+.div-avatar{
+    background-color: var(--white);
+    border-radius: 50%;
+    padding: 5px;
+    position: relative;
+    right: -65px;
+}
+.avatar{
+    width: 130px;
+}
+/* info */
+.profile-info{
+    padding: 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.profile-head p{
+    margin: 0;
+    font-weight: 600;
+    font-size: 30px;
+}
+.profile-head hr{
+    margin-right: 50px;
+}
+.profile-head label{
+    font-size: 19px;
+}
+.profile-body .col{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.profile-body .th{
+    font-weight: 700;
+}
+.profile-body{
+    font-size: 15px;
+}
+.btn-profile{
+    margin: 20px 40px 0 0;
+    width: 100px;
+    height: 40px;
+    border: none;
+    font-weight: 500;
+    color: var(--white);
+    border-radius: 50px;
+}
+.btn-logout{
+    box-shadow: 5px 5px 10px rgb(236, 105, 105 , 0.4);
+    background: linear-gradient(to right, #ec6969, #f0b066);
+}
+.btn-home{
+    box-shadow: 5px 5px 10px rgb(106, 223, 125 , 0.4);
+    background: linear-gradient(to right, #6adf7d, #57dabd);
+}
+@media screen and (max-width: 700px) {
+    .cont-profile{
+        display: block;
+        max-width: 400px;
+        height: auto;
+    }
+    .div-avatar-father{
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+        background: linear-gradient(to top, #c6a3dd, #9abdc9);
+        margin-bottom: 50px;
+    }
+    .div-avatar{
+        right: 0px;
+        bottom: -65px;
+    }
+    /* info */
+    .profile-info{
+        text-align: center;
+        padding: 10px;
+    }
+    .profile-head hr{
+        margin-right: 0;
+    }
+    .btn-profile{
+        margin: 10px 20px;
+    }
 }
