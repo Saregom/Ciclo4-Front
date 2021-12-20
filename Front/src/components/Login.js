@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from 'axios';
 import { ReactComponent as Logo } from './sources/logo-ochobits2.svg';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 const Login = () =>{
 
@@ -9,6 +11,8 @@ const Login = () =>{
         email: "",
         password: ""
     });
+
+    const [typePass, setTypePass ] = useState("password"); 
 
     let navigate = useNavigate();
     const verifyUser = (event) => {
@@ -23,6 +27,24 @@ const Login = () =>{
                 alert(`Welcome ${data.name}`)
             }
         });
+    }
+
+    const typePassChange = (type) => {
+        setTypePass(type)
+    }
+
+    const btnPassword = () => {
+        let myType, myIcon
+        if(typePass === "password"){
+            myType="text"
+            myIcon = faEye
+        }else if(typePass === "text"){
+            myType="password"
+            myIcon = faEyeSlash
+        }
+        return(
+            <button className='btn-show-pass' type="button" onClick={() => typePassChange(myType)}><FontAwesomeIcon className="fas fa-eye" icon={ myIcon }/></button>
+        )
     }
 
     const handleChange = (event) => {
@@ -60,11 +82,15 @@ const Login = () =>{
                             onChange={handleChange}
                             id="pass1" 
                             className="form-control"
-                            type="password"
+                            type={typePass}
                             placeholder="."
+                            autoComplete="off"
                             required
                             style={{height: '50px'}}/>
                             <label>Password</label>
+                        </div>
+                        <div className="col-auto col-show-pass">
+                            {btnPassword()}
                         </div>
                     </div>
                     <input className="btn-index btn-blue" type="submit" value="Log in"/>

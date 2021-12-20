@@ -16,8 +16,9 @@ const Header = () =>{
 
     const [nameHeader, setNameHeader ] = useState({
         nameUser:"",
-        order:"",
-        myOrder:<></>,
+        makeorder:<></>,
+        orders:<></>,
+        myOrders:<></>,
         tables:<></>
     })
 
@@ -26,30 +27,26 @@ const Header = () =>{
         navigate("/home", { replace: true });
     }
 
-    useEffect(() =>{ //ver s se corrige haciendo return dentro del axios
+    useEffect(() =>{ 
         const firstProcces = () => {
             let id = sessionStorage.getItem("idUser")
             axios.get("http://144.22.242.102/api/user/"+id).then(function(res){
+                let myNameHeader = {...nameHeader}
                 let user = res.data
+                let arrayName = user.name.split(" ")
+                myNameHeader.nameUser = arrayName[0]
+
                 setPathProfile("/home/profile/"+user.name+"")
-                if(user.type === "ASE" || user.type === "CLIENT"){
-                    setNameHeader({...nameHeader,
-                        nameUser:user.name,
-                        order:"Make order",
-                        myOrder:<NavLink className="txt-menu-left" exact="true" to="/home/myorders">My orders</NavLink>
-                    }) 
-                }else if( user.type === "COORD" ||  user.type === "ADM"){
-                    setNameHeader({...nameHeader,
-                        nameUser:user.name,
-                        order:"Orders",
-                    })
-                }/* else if(type === "ADM"){
-                    setNameHeader({...nameHeader,
-                        tables:<NavLink className="txt-menu-left" exact="true" to="/home/tables">Edit data</NavLink>
-                    }) 
-                } */
-                /* setNameHeader({...nameHeader, nameUser:user.name}) */
                 
+                if(user.type === "ASE" || user.type === "CLIENT"){
+                    myNameHeader.makeorder = <NavLink className="txt-menu" exact="true" to="/home/makeorder">Make Order</NavLink>
+                    myNameHeader.myOrders = <NavLink className="txt-menu" exact="true" to="/home/myorders">My orders</NavLink>
+                }else if( user.type === "COORD"){
+                    myNameHeader.orders = <NavLink className="txt-menu" exact="true" to="/home/orders">Orders</NavLink>
+                }else if(user.type === "ADM"){
+                    myNameHeader.tables = <NavLink className="txt-menu" exact="true" to="/home/editdata">Edit data</NavLink>
+                }
+                setNameHeader({...myNameHeader}) 
             }); 
         }
         firstProcces()
@@ -88,22 +85,22 @@ const Header = () =>{
                 <nav className="nav-menu">
                     <NavLink className="txt-menu" exact="true" to="/home/catalog">Catalog</NavLink>
                     <NavLink className="txt-menu" exact="true" to="/home/birthdays">Birthdays</NavLink>
-                    {nameHeader.myOrder}
-                    <NavLink className="txt-menu" exact="true" to="/home/orders">{nameHeader.order}</NavLink>
-                    <NavLink className="txt-menu" exact="true" to="/home/editdata">Edit data</NavLink>
-                    {/* {nameHeader.tables} */}
-                    <NavLink className="txt-menu" exact="true" to={pathProfile}><span>My profile</span></NavLink>
+                    {nameHeader.myOrders}
+                    {nameHeader.makeorder}
+                    {nameHeader.orders}
+                    {nameHeader.tables}
+                    <NavLink className="txt-menu" exact="true" to={pathProfile}>My profile</NavLink>
                 </nav> 
+
                 <div className="nav-menu-popup" onClick={clickMenuLeave} ref={myRef.menuPopUp}></div>
                 <nav className="nav-menu-left" onClick={clickMenuLeave}ref={myRef.menuLeft}>
-                    <NavLink className="txt-menu-left" exact="true" to={pathProfile}>My profile</NavLink>
-                    {/* {nameHeader.tables} */}
-                    <NavLink className="txt-menu-left" exact="true" to="/home/editdata">Edit data</NavLink>
-                    <NavLink className="txt-menu-left" exact="true" to="/home/catalog">Catalog</NavLink>
-                    <NavLink className="txt-menu-left" exact="true" to="/home/birthdays">Birthdays</NavLink>
-                    <NavLink className="txt-menu-left" exact="true" to="/home/orders">{nameHeader.order}</NavLink>
-                    {nameHeader.myOrder}
-                    
+                    <NavLink className="txt-menu" exact="true" to={pathProfile}>My profile</NavLink>
+                    {nameHeader.tables}
+                    <NavLink className="txt-menu" exact="true" to="/home/catalog">Catalog</NavLink>
+                    <NavLink className="txt-menu" exact="true" to="/home/birthdays">Birthdays</NavLink>
+                    {nameHeader.myOrders}
+                    {nameHeader.makeorder}
+                    {nameHeader.orders}
                 </nav>
                 <div className="menu-logo-user">
                     <FontAwesomeIcon className="fas fa-user-circle" icon={ faUserCircle }/>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from 'axios';
 import { ReactComponent as Logo } from './sources/logo-ochobits2.svg';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 const Signin = () =>{
 
@@ -20,6 +22,8 @@ const Signin = () =>{
 
     const [passConfirm, setPassConfirm ] = useState("");
 
+    const [typePass, setTypePass ] = useState("password");
+
     const [required, setRequired ] = useState({
         reqEmail: "",
         reqPass: "",
@@ -31,8 +35,26 @@ const Signin = () =>{
         setUser({...user, [name]:value})
     }
 
-    const handleChange2 = (event) => {
+    const passConfirmChange = (event) => {
         setPassConfirm(event.target.value)
+    }
+
+    const typePassChange = (type) => {
+        setTypePass(type)
+    }
+
+    const btnPassword = () => {
+        let myType, myIcon
+        if(typePass === "password"){
+            myType="text"
+            myIcon = faEye
+        }else if(typePass === "text"){
+            myType="password"
+            myIcon = faEyeSlash
+        }
+        return(
+            <button className='btn-show-pass' type="button" onClick={() => typePassChange(myType)}><FontAwesomeIcon className="fas fa-eye" icon={ myIcon }/></button>
+        )
     }
     
     const validations = async (event) => {
@@ -129,25 +151,30 @@ const Signin = () =>{
                             value={user.password}
                             onChange={handleChange}
                             className="form-control"
-                            type="password"
+                            type={typePass}
                             placeholder="."
+                            autoComplete="off"
                             required
                             style={{height: '50px'}}/>
                             <label>Password</label>
                             <p className="required">{required.reqPass}</p>
                         </div>
-                        <div className="col-sm form-floating">
+                        <div className="col form-floating">
                             <input 
                             name="passConfirm" 
                             value={passConfirm}
-                            onChange={handleChange2}
+                            onChange={passConfirmChange}
                             className="form-control" 
-                            type="password" 
-                            placeholder="." 
+                            type={typePass}
+                            placeholder="."
+                            autoComplete="off" 
                             required 
                             style={{height: '50px'}}/>
                             <label>Confirm password</label>  
                             <p className="required">{required.reqConfirmPass}</p>
+                        </div>
+                        <div className="col-auto col-show-pass">
+                            {btnPassword()}
                         </div>
                     </div>
                     <div className="row">

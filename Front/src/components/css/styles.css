@@ -13,6 +13,11 @@
     --gray-box-shadow: #B8B8B8;
 }
 /* estructure */
+.only{
+    text-align: center;
+    margin: 20px;
+}
+/* aside */
 .aside{
     position: fixed;
     top: 55px;
@@ -23,6 +28,90 @@
     overflow-y: auto;
     box-shadow: 6px 0 10px -5px var(--gray-box-shadow);
 }
+.option-table{
+    padding: 0 10px 0 300px;
+    margin-bottom: 10px;
+}
+.option-table .col{
+    font-size: 25px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #252397;
+    padding: 0;
+    background-color: var(--white);
+}
+.option-table .NavLink{
+    display: block;
+    color: var(--blue-Oscuro);
+}
+.option-table .NavLink:hover{
+    color: var(--white);
+    background-color: #5a57e7;
+}
+
+.div-filter input, .div-filter label{
+    font-size: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.div-filter-type{
+    margin: 20px 0;
+}
+.div-filter-type select, .div-filter-type input{
+    width: 100%;
+    height: 30px;
+}
+.aside-name{
+    display: inline-block;
+    margin: 0px 15px 10px 0; 
+}
+.fa-info-circle{
+    opacity: 0.4;
+}
+.aside-input{
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+}
+.aside-btn{
+    width: 100%;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightskyblue;
+}
+.aside-btn:hover{
+    background-color: rgb(112, 188, 235);
+}
+@media screen and (max-width: 600px) {
+    .option-table{
+        padding: 0 10px 10px;
+    }
+    .aside{
+        position: initial;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        box-shadow: 0 0;
+    }
+    .aside{
+        padding-top: 20px;
+    }
+    .aside-top{
+        padding-top: 0px;
+    }
+    .aside-top h3{
+        margin-bottom: 10px;
+    }
+    .main2{
+        margin: 0px;
+    }
+}
+/* main */
 .main{
     padding: 20px;
 }
@@ -61,32 +150,7 @@
     text-decoration: none;
 }
 
-/* ----------- INDEX -----------*/
-/* carga */
-/* .father-preload{
-    height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-.preloader {
-    width: 70px;
-    height: 70px;
-    border: 8px solid var(--white);
-    border-top: 8px solid #666;
-    border-radius: 50%;
-    animation-name: girar;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-  }
-  @keyframes girar {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-} */
+/* ----------- INDEX (Login, signin)-----------*/
 /* cuerpo index */
 .cont{
     margin: auto;
@@ -134,6 +198,23 @@ input.form-control:focus, button.btn-index:focus{
     font-size: 12px;
     margin-bottom: 0;
     color: red;
+}
+/* button show pass */
+.row .col-show-pass{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0;
+    width: 39px;
+}
+.btn-show-pass{
+    border: none;
+    background-color: transparent;
+}
+.btn-show-pass .fas{
+    font-size: 22px;
+    display: flex; /*arregla el margin por defecto del icono*/
 }
 /* buttons */
 .btn-index{
@@ -221,7 +302,15 @@ input.form-control:focus, button.btn-index:focus{
     z-index: 200;
 }
 .nav-menu-left{
-    display: none;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+    display: block;
+    width: 0;
+    background-color: #6b52db;
+    z-index: 300;
 }
 .txt-menu, .txt-menu-left{
     margin: 0px 10px;
@@ -249,17 +338,6 @@ input.form-control:focus, button.btn-index:focus{
     margin-left: 5px;
     margin-right: 0;
 }
-.logout{
-    display: inline-block;
-    color: var(--white);
-    padding: 0 10px;
-    background-color: #e76161;
-    cursor: pointer;
-    border: 1px solid black;
-}
-.logout:hover{
-    background-color: rgb(221, 58, 58);
-}
 
 @media screen and (max-width: 950px) {
     .div-bars{
@@ -274,18 +352,7 @@ input.form-control:focus, button.btn-index:focus{
     .nav-menu{
         display: none;
     }
-    .nav-menu-left{
-        top: 0;
-        left: 0;
-        height: 100vh;
-        position: fixed;
-        overflow-y: auto;
-        display: block;
-        width: 0;
-        background-color: #6b52db;
-        z-index: 300;
-    }
-    .txt-menu-left{
+    .nav-menu-left .txt-menu{
         white-space: nowrap;
         margin: 0;
         font-size: 19px;
@@ -293,12 +360,11 @@ input.form-control:focus, button.btn-index:focus{
         display: block;
         border-bottom: 2px solid var(--blue-Oscuro);
     }
-    .txt-menu-left:hover{
-        color: var(--blue-Oscuro);
+    .txt-menu:hover{
         background-color: #bfb1f5;
     }
     .menu-logo-user{
-        border: none;
+        border-left: none;
     }
 }
 @media screen and (max-width: 575px) {
@@ -306,97 +372,38 @@ input.form-control:focus, button.btn-index:focus{
         display:none;
     }
 }
-
 /* main */
-.option-table{
-    padding: 0 10px 0 300px;
-    margin-bottom: 10px;
-}
-.option-table .col{
-    font-size: 25px;
-    cursor: pointer;
+.main2-home{
+    margin-top: 20px;
     text-align: center;
-    border: 2px solid #252397;
-    padding: 0;
-    background-color: var(--white);
-}
-.option-table .NavLink{
-    display: block;
-    color: var(--blue-Oscuro);
-}
-.option-table .NavLink:hover{
+    background-color: #5957d3;
     color: var(--white);
-    background-color: #5a57e7;
+    padding: 20px;
 }
-/* aside */
-.div-filter input, .div-filter label{
-    font-size: 20px;
-    margin-left: 5px;
-    margin-top: 5px;
-    cursor: pointer;
+.our-catalog-home{
+    background-color: var(--white);
+    text-align: center;
 }
-.div-filter-type{
-    margin: 20px 0;
+.our-catalog-home h2{
+    margin-top: 20px;
+    background-color: rgb(241, 233, 116);
+    padding: 15px;
+    color: var(--blue-Oscuro);
+    text-decoration: underline var(--blue-Oscuro);
 }
-.div-filter-type select, .div-filter-type input{
-    width: 100%;
-    height: 30px;
+.our-catalog-home h2:hover{
+    color: var(--white);
+    text-decoration: underline var(--white);
 }
-.aside-name{
-    display: inline-block;
-    margin: 0px 15px 10px 0; 
+.div-laptops-home {
+    display: flex;
+    overflow-x: scroll;
+    align-items: center;
 }
-.fa-info-circle{
-    opacity: 0.4;
+.div-laptops-home img{
+    margin: 0 50px;
+    min-height: 240px;
 }
-.aside-input{
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid black;
-}
-.aside-btn{
-    width: 100%;
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    background-color: lightskyblue;
-}
-.aside-btn:hover{
-    background-color: rgb(112, 188, 235);
-}
-@media screen and (max-width: 600px) {
-    .option-table{
-        padding: 0 10px 10px;
-    }
-    .aside{
-        position: initial;
-        width: 100%;
-        height: auto;
-        padding: 0;
-        box-shadow: 0 0;
-    }
-    .aside{
-        padding-top: 20px;
-    }
-    .aside-top{
-        padding-top: 0px;
-    }
-    .aside-top h3{
-        margin-bottom: 10px;
-    }
-    .main2{
-        margin: 0px;
-    }
-}
-/* @media screen and (max-width: 1100px) {
-	table, th, thead, tbody, td{ display: block; }
-	thead { float: left;}
-	tbody {overflow-x: auto; white-space: nowrap; }
-	tr { display: inline-block;}
-} */
 
 
 /* ----------- ORDERS -----------*/
@@ -437,13 +444,20 @@ input.form-control:focus, button.btn-index:focus{
     width: 100%;
     height: 100%;
 }
-.table-ord-prod th{
+.table-ord-prod thead{
+    text-align: center;
+}
+.div-table-prod img{
+    max-height: 100px;
+}
+.table-ord-prod tbody th{
     padding-right: 10px;
-    border-bottom: 1px solid black;
 }
 .table-ord-prod td{
     text-align: right;
-    border-bottom: 1px solid black;
+}
+.table-ord-prod .description{
+    text-align: center;
 }
 /* COOR */
 .main-orders-coor h1{
@@ -455,7 +469,11 @@ input.form-control:focus, button.btn-index:focus{
     max-width: 300px;
     width: 100%;
 }
-
+@media screen and (max-width: 768px) {
+    .div-table-prod img{
+        max-height: 200px;
+    }
+}
 
 /* ----------- MY ORDERS -----------*
 /* main */
@@ -469,7 +487,7 @@ input.form-control:focus, button.btn-index:focus{
 }
 
 
-/* ----------- MY ORDERS -----------*/
+/* ----------- MY PROFILE -----------*/
 /* card */
 .body-profile{
     display: flex;

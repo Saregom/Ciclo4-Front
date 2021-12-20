@@ -71,7 +71,16 @@ const MyOrders = () =>{
     }
 
     useEffect(  () =>{
-        callOrders()
+        const callOrdersEffect = async () => {
+            let id = sessionStorage.getItem("idUser")
+            await axios.get("http://144.22.242.102/api/order/salesman/"+id).then(function(res){
+                if(res.data.length === 0){
+                    setAlert("You don't have any order")
+                }
+                afterGet(res.data)
+            }); 
+        }
+        callOrdersEffect()
     }, [])
 
     function applyFilter (event){
@@ -103,8 +112,12 @@ const MyOrders = () =>{
         }else{
             let tableTr = []
             for(const ord of orders){
-                let date = new Date(ord.registerDay).toLocaleDateString()
+                let myDate = new Date(ord.registerDay)
+                myDate.setMinutes(myDate.getMinutes() + myDate.getTimezoneOffset())
+                let date = myDate.toLocaleDateString()
+                
                 let myButton;
+
                 if(buttonDetails === "hidden"){
                     myButton = <button className='btn2-table' onClick={ callOrders } ><FontAwesomeIcon className="fas fa-eye-slash" icon={ faEyeSlash }/></button>
                 }else{

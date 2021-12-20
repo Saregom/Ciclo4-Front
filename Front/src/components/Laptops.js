@@ -5,7 +5,7 @@ import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Laptops = () =>{
 
-    const [alert, setAlert] = useState("")
+    const [myAlert, setMyAlert] = useState("")
 
     const [laptop, setLaptop ] = useState({
         id: "",
@@ -40,14 +40,22 @@ const Laptops = () =>{
     const callLaptops = () => {
         axios.get("http://144.22.242.102/api/laptop/all").then(function(res){
             if(res.data.length === 0){
-                setAlert("There aren't products")
+                setMyAlert("There aren't products")
             }
             setListLaptop(res.data)
         }); 
     }
 
     useEffect(() => {
-        callLaptops()
+        const callLaptopsEffect = () => {
+            axios.get("http://144.22.242.102/api/laptop/all").then(function(res){
+                if(res.data.length === 0){
+                    setMyAlert("There aren't products")
+                }
+                setListLaptop(res.data)
+            }); 
+        }
+        callLaptopsEffect()
     }, []);
 
     useEffect(() => {
@@ -70,11 +78,17 @@ const Laptops = () =>{
     const setInputs = () => {
         let keys = Object.keys(laptop)
         let divInputs = []
-        let i = 0
         for(const key of keys){
+            let type = "text"
+            if(key === "id" || key === "price" || key === "quantity"){
+                type = "number"
+            }/* else if(key === "password"){
+                type = "password"
+            } */
+
             if(key === "id"){
                 divInputs.push(
-                    <div key={i++}>
+                    <div key={key}>
                         <label className='aside-label'>
                             { key[0].toUpperCase() + key.slice(1)}
                         </label>
@@ -91,9 +105,26 @@ const Laptops = () =>{
                     </div>
                 )
                 continue;
+            }else if(key === "availability"){
+                divInputs.push(
+                    <div key={key}>
+                        <select
+                            name={key}
+                            value={laptop[key]}
+                            onChange={inputChange}
+                            className="aside-input" 
+                            required
+                            style={{height: '50px'}}>
+                                <option value="" disabled defaultValue>Availability</option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                    </div>
+                )
+                continue;
             }
             divInputs.push(
-                <div key={i++}>
+                <div key={key}>
                     <label className='aside-label'>
                         { key[0].toUpperCase() + key.slice(1)}
                     </label>
@@ -101,7 +132,7 @@ const Laptops = () =>{
                         name={key}
                         value={laptop[key]}
                         onChange={inputChange} 
-                        type="text"
+                        type={type}
                         className='aside-input' 
                         required>
                     </input>
@@ -115,7 +146,6 @@ const Laptops = () =>{
         axios.get("http://144.22.242.102/api/laptop/"+id).then(function(res){
             setLaptop(res.data)
             setOptionCrud("PUT")
-            
         }); 
     }
 
@@ -138,7 +168,6 @@ const Laptops = () =>{
             
             for(const key in laptop){
                 tableTd.push(<td key={key}>{""+laptop[key]+""}</td>)
-                
             }
             tableTd.push(
                 <td key={i++}>
@@ -157,10 +186,12 @@ const Laptops = () =>{
         console.log(optionCrud)
         if(optionCrud === "POST"){
             axios.post("http://144.22.242.102/api/laptop/new", laptop).then(function(res){
-            alert("Created data")
+                callLaptops()
+                alert("Created data")
         }); 
         }else{
             axios.put("http://144.22.242.102/api/laptop/update", laptop).then(function(res){
+                callLaptops()
                 alert("Updated data")
             }); 
         }
@@ -169,13 +200,14 @@ const Laptops = () =>{
     const delet = (id) => {
         axios.delete("http://144.22.242.102/api/laptop/"+id).then(function(res){
             alert("Deleted data")
+            callLaptops()
         }); 
     }
 
     return(
         <>
             <div className="main2 main2-tables">
-                <h2 className="alert2">{alert}</h2>
+                <h2 className="alert2">{myAlert}</h2>
                 <div className="div-table">
                     <table className="table" style={{marginBottom: '0'}}>
                         <thead><tr>{setThead()}</tr></thead>

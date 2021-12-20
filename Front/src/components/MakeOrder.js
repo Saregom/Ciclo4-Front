@@ -1,12 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import LaptopsList from "./laptopsList";
 
 const MakeOrder = () =>{
-
-    const [myAlert, setAlert] = useState("")
 
     const [inputsOrder, setinputsOrder ] = useState({list:[]})
 
@@ -17,8 +15,6 @@ const MakeOrder = () =>{
     const [OrdProd, setOrdProd ] = useState({0: 0})
 
     const [OrdQuan, setOrdQuan ] = useState({0: 0})
-
-    const [listLaptop, setListLaptop ] = useState([])
 
     const OrdProdChange = (event) =>{
         const {name, value} = event.target
@@ -103,44 +99,6 @@ const MakeOrder = () =>{
         });
     }
 
-    useEffect(() => {
-        axios.get("http://144.22.242.102/api/laptop/all").then(function(res){
-            if(res.data.length === 0){
-                setAlert("There aren't products")
-            }
-            setListLaptop(res.data)
-        }); 
-    }, []);
-
-    const setTbody = () => {
-        let table = []
-        let i = 0
-        if(listLaptop.length === 0){
-            return []
-        }else{
-            for(const laptop of listLaptop){
-                let tableTr = []
-                
-                for(const key in laptop){
-                    if(key === "quantity" || key === "photography"){
-                        continue
-                    }
-                    tableTr.push(<tr key={key}><th>{key}</th><td>{""+laptop[key]+""}</td></tr>)
-                }
-                table.push( 
-                    <div key={i++} className='col col-orders'>
-                        <div className='div-table-prod'>
-                            <table className='table-ord-prod'>
-                                <tbody>{tableTr}</tbody>
-                            </table>
-                        </div>
-                    </div>)
-            }
-        }
-        return table
-        
-    }
-
     return(
         <>
             <div className="main main-orders-ase">
@@ -188,11 +146,9 @@ const MakeOrder = () =>{
                 </aside>
                 <div className="main2 main2-orders">
                     <h1>Laptops</h1>
-                    <h2 className="alert1">{myAlert}</h2>
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 row-tables-prod">
-                        {setTbody()}
-                    </div>
+                    <LaptopsList/>
                 </div>
+                
             </div>
         </>
     )

@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons'; */
+import LaptopsList from "./laptopsList";
 
 const Catalog = () =>{
 
@@ -11,21 +10,7 @@ const Catalog = () =>{
         description: ""
     })
 
-    const [alert, setAlert] = useState("")
-
-    const [laptop] = useState({
-        id: "",
-        brand: "",
-        model: "",
-        procesor: "",
-        os: "",
-        description: "",
-        memory: "",
-        hardDrive: "",
-        availability: "",
-        price: "",
-        photography: "",
-    });
+    const [myAlert, setMyAlert] = useState("")
 
     const [listLaptop, setListLaptop ] = useState([])
 
@@ -44,7 +29,7 @@ const Catalog = () =>{
     const callLaptops = () => {
         axios.get("http://144.22.242.102/api/laptop/all").then(function(res){
             if(res.data.length === 0){
-                setAlert("There aren't products")
+                setMyAlert("There aren't products")
             }
             setListLaptop(res.data)
         }); 
@@ -72,51 +57,24 @@ const Catalog = () =>{
 
     function applyFilter (event){
         event.preventDefault()
+        setMyAlert("")
         if(filter.radio === "price"){
             axios.get("http://144.22.242.102/api/laptop/price/"+filter.price).then(function(res){
                 if(res.data.length === 0){
-                    setAlert("There isn't any laptop with price less or equal to: "+filter.price)
+                    setMyAlert("There isn't any laptop with price less or equal to: "+filter.price)
                 }
                 setListLaptop(res.data)
             }); 
         }else if(filter.radio === "description"){
             axios.get("http://144.22.242.102/api/laptop/description/"+filter.description).then(function(res){
                 if(res.data.length === 0){
-                    setAlert("There isn't any description with the word/s: "+filter.description)
+                    setMyAlert("There isn't any description with the word/s: "+filter.description)
                 }
                 setListLaptop(res.data)
             }); 
         }else{
-            setAlert("")
             callLaptops()
         }
-    }
-
-    const setThead = () => {
-        let keys = Object.keys(laptop)
-        let tableTh = []
-        let i = 0
-        for(const key of keys){
-            tableTh.push(<th key={i++}>{key[0].toUpperCase() + key.slice(1)}</th>)
-        }
-        return tableTh
-    }
-
-    const setTbody = () => {
-        let tableTr = []
-        let i = 0
-        for(const myLaptop of listLaptop){
-            let tableTd = []
-            
-            for(const key in myLaptop){
-                if(key === "quantity"){
-                    continue;
-                }
-                tableTd.push(<td key={key}>{""+myLaptop[key]+""}</td>)
-            }
-            tableTr.push(<tr key={i++}>{tableTd}</tr>)
-        }
-        return tableTr
     }
 
     return(
@@ -145,14 +103,7 @@ const Catalog = () =>{
                 </form>
             </aside>
             <div className="main2 main2-tables">
-                <h1 className="title-page">Laptops catalog</h1>
-                <h2 className="alert2">{alert}</h2>
-                <div className="div-table">
-                    <table className="table" style={{marginBottom: '0'}}>
-                        <thead><tr>{setThead()}</tr></thead>
-                        <tbody>{setTbody()}</tbody>
-                    </table>
-                </div>
+                <LaptopsList listLaptop={listLaptop} myAlert={myAlert}/>
             </div>
         </div>
     )

@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
 
 
 const Users = () =>{
+
+    const [myAlert, setMyAlert] = useState("")
+
     const [user, setUser ] = useState({
         id:"",
         identification: "",
@@ -21,39 +24,156 @@ const Users = () =>{
 
     const [listUser, setListUser ] = useState([])
 
-    useEffect(() => {
-        axios.get("http://144.22.242.102/api/user/all").then(function(res){
-            setListUser(res.data)
-        }); 
-    }, []);
+    const [optionCrud, setOptionCrud ] = useState("POST")
 
-    const handleChange = (event) => {
+    const myRef = React.createRef()
+
+    const inputChange = (event) => {
         const {name, value} = event.target
         setUser({...user, [name]:value})
     }
+
+    const crudChange = (event) => {
+        setOptionCrud(event.target.value)
+    }
+
+    const callUsers = () => {
+        axios.get("http://144.22.242.102/api/user/all").then(function(res){
+            if(res.data.length === 0){
+                setMyAlert("There aren't products")
+            }
+            setListUser(res.data)
+        }); 
+    }
+
+    useEffect(() => {
+        const callUsersEfect = () => {
+            axios.get("http://144.22.242.102/api/user/all").then(function(res){
+                if(res.data.length === 0){
+                    setMyAlert("There aren't products")
+                }
+                setListUser(res.data)
+            }); 
+        }
+        callUsersEfect()
+    }, []);
+
+    useEffect(() => {
+        const changeOptionCrud = () => {
+            let inp = myRef.current
+            if(optionCrud === "POST"){
+                setUser({...user, id:""})
+                inp.disabled = true
+                inp.style.opacity = "0.3"
+                inp.title  = "Disabled"
+            }else{
+                inp.disabled = false
+                inp.style.opacity = "1"
+                inp.title  = ""
+            }
+        }
+        changeOptionCrud()
+    }, [optionCrud]);
     
     const setInputs = () => {
         let keys = Object.keys(user)
-        return keys.map((key, i) => { //for of
-            return (<div key={i}>
-                <label className='aside-label'>
-                    { key[0].toUpperCase() + key.slice(1)}
-                </label>
-                <input 
-                    name={key}
-                    value={user[key]}
-                    onChange={handleChange} 
-                    type="text"
-                    className='aside-input' 
-                    required>
-                </input>
-            </div>)
-        })
+        let divInputs = []
+        for(const key of keys){
+            let type = "text"
+            if(key === "id" || key === "identification" || key === "monthBirthtDay" || key === "cellPhone"){
+                type = "number"
+            }else if(key === "password"){
+                type = "password"
+            }else if(key === "birthtDay"){
+                type = "date"
+            }
+
+            if(key === "id"){
+                divInputs.push(
+                    <div key={key}>
+                        <label className='aside-label'>
+                            { key[0].toUpperCase() + key.slice(1)}
+                        </label>
+                        <input 
+                            ref={myRef}
+                            name={key}
+                            value={user[key]}
+                            onChange={inputChange} 
+                            type={type}
+                            className='aside-input' 
+                            required
+                            >
+                        </input>
+                    </div>
+                )
+                continue;
+            }else if(key === "zone"){
+                divInputs.push(
+                    <div key={key}>
+                        <select
+                            name={key}
+                            value={user[key]}
+                            onChange={inputChange}
+                            className="aside-input" 
+                            required
+                            style={{height: '50px'}}>
+                                <option value="" disabled defaultValue>Zone</option>
+                                <option value="Zone 1">Zone 1</option>
+                                <option value="Zone 2">Zone 2</option>
+                                <option value="Zone 3">Zone 3</option>
+                                <option value="Zone 4">Zone 4</option>
+                                <option value="Zone 5">Zone 5</option>
+                                <option value="Zone 6">Zone 6</option>
+                            </select>
+                    </div>
+                )
+                continue;
+            }else if(key === "type"){
+                divInputs.push(
+                    <div key={key}>
+                        <select
+                            name={key}
+                            value={user[key]}
+                            onChange={inputChange}
+                            className="aside-input" 
+                            required
+                            style={{height: '50px'}}>
+                                <option value="" disabled defaultValue>Type</option>
+                                <option value="CLIENT">CLIENT</option>
+                                <option value="ASE">ASE</option>
+                                <option value="COOR">COOR</option>
+                                <option value="ADM">ADM</option>
+                            </select>
+                    </div>
+                )
+                continue;
+            }
+
+            divInputs.push(
+                <div key={key}>
+                    <label className='aside-label'>
+                        { key[0].toUpperCase() + key.slice(1)}
+                    </label>
+                    <input 
+                        name={key}
+                        value={user[key]}
+                        onChange={inputChange} 
+                        type={type}
+                        className='aside-input' 
+                        required>
+                    </input>
+                </div>
+            )
+        }
+        return divInputs
     }
 
     const setTextInputs = (id) => {
         axios.get("http://144.22.242.102/api/user/"+id).then(function(res){
-            setUser(res.data)
+            let myUser = {...res.data}
+            myUser.birthtDay = myUser.birthtDay.substring(0, 10)
+            setUser(myUser)
+            setOptionCrud("PUT")
         }); 
     }
 
@@ -94,16 +214,44 @@ const Users = () =>{
         return userTr
     }
 
-    const put = (event) => {
+    const postPut = async (event) => {
         event.preventDefault()
-        axios.put("http://144.22.242.102/api/user/update", user).then(function(res){
-            console.log(user)
-            alert("Updated Data")
-        }); 
+        let emailexist
+
+        await axios.get(`http://144.22.242.102/api/user/emailexist/${user.email}`).then(function(res){
+            emailexist = res.data
+        })
+
+        if(optionCrud === "POST"){
+            if(emailexist){
+                alert("La direccion de correo ya existe")
+            }else{
+                axios.post("http://144.22.242.102/api/user/new", user).then(function(res){
+                    console.log("created")
+                    callUsers()
+                    alert("Created data")
+                })
+            }
+        }else{
+            let myEmail
+            await axios.get(`http://144.22.242.102/api/user/${user.id}`).then(function(res){
+                myEmail = res.data.email
+            })
+            if(emailexist & myEmail !== user.email){
+                alert("La direccion de correo ya existe")
+            }else{
+                axios.put("http://144.22.242.102/api/user/update", user).then(function(res){
+                    console.log("updated")
+                    callUsers()
+                    alert("Updated data")
+                }); 
+            }
+        }
     }
 
     const delet = (id) => {
         axios.delete("http://144.22.242.102/api/user/"+id).then(function(res){
+            callUsers()
             alert("Deleted data")
         }); 
     }
@@ -111,6 +259,7 @@ const Users = () =>{
     return(
         <>
             <div className="main2 main2-tables">
+            <h2 className="alert2">{myAlert}</h2>
                 <div className="div-table">
                     <table className="table" style={{marginBottom: '0'}}>
                         <thead><tr>{setThead()}</tr></thead>
@@ -119,9 +268,14 @@ const Users = () =>{
                 </div>
             </div>
             <aside className="aside aside-tables">
-                <h2>User</h2>
                 <div className="aside-user">
-                    <form onSubmit={put}>
+                    <h2 className="aside-name">User</h2>
+                    <select value={optionCrud} onChange={crudChange} className='aside-inpu'>
+                        <option value="POST">Create</option>
+                        <option value="PUT">Update</option>
+                    </select>
+
+                    <form onSubmit={postPut}>
                         <div className="aside-inputs-user">
                             {setInputs()}
                         </div>

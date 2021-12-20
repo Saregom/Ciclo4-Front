@@ -7,19 +7,10 @@ const Birthdays = () =>{
 
     const [filter, setFilter ] = useState({
         radio: "none",
-        birthday: 0,
+        birthday: 0
     })
 
     const [alert, setAlert] = useState("")
-
-    /* const [user, setUser ] = useState({
-        name: "",
-        birthtDay: "",
-        monthtBirthday: "",
-        email: "",
-        zone: "",
-        type: "",
-    }); */
 
     const [listUser, setListUser ] = useState([])
 
@@ -41,7 +32,15 @@ const Birthdays = () =>{
     }
 
     useEffect(() => {
-        callUsers()
+        const callUsersEffect = () => {
+            axios.get("http://144.22.242.102/api/user/all").then(function(res){
+                if(res.data.length === 0){
+                    setAlert("There aren't users")
+                }
+                setListUser(res.data)
+            }); 
+        }
+        callUsersEffect()
     }, []);
 
     const filterType = () =>{
