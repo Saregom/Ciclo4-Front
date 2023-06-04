@@ -6,6 +6,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## `npm install `
+
+Para instalar los modulos
+
+### `npm i react-scripts@latest`
+
+Para instalar los modulos mas actualizados, resuelve el error del script `npm start` cuando no es reconocido
+
 ### `npm start`
 
 Runs the app in the development mode.\
